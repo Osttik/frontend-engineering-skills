@@ -10,6 +10,8 @@ Validation passed for the updated schema and every direct reference link: 69 rou
 
 Six added cases were evaluated by semantic emulation: empty React application, starter-only React scaffold, established `src/modules` layout, Next.js App Router, Next.js Pages Router, and explicit `src/domains` user choice. Each matched the reference's intended placement and precedence. No live model execution is claimed. Detailed local results are in `.verification/react-structure-activation.json`.
 
+The published core was updated using the official installer wrapper. Native `skills/list` with `forceReload` passed: all four skills appear exactly once, enabled at user scope, with implicit invocation allowed and matching installed content hashes. The updated core contains 16 files, including the new structure reference. Machine-specific evidence is in `.verification/installation-react-structure.json`; upstream installations were retained at their reviewed commits.
+
 The original release checks and installation snapshot below are retained as historical evidence; the latest precise installed commit and content hashes are recorded by the local native verifier.
 
 ## Authoring checks

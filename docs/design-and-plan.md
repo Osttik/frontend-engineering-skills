@@ -27,4 +27,4 @@ The user now requires a consistent structure for React projects when no establis
 - [x] Link it from the router only for React layout decisions. Bump skill metadata to `1.1.0`, retain implicit invocation, and keep the router within its original size budget.
 - [x] Make `scripts/validate.py` check all actual reference files against direct router links rather than a fixed count; update README and activation fixtures.
 - [x] Run `python scripts/validate.py` and bundled `quick_validate.py`; assess blank React, starter-only React, existing custom structure, Next App Router, Next Pages Router, and explicit user structure cases.
-- [ ] Record the actual validation, commit/push `main`, install the published core with `scripts/install.ps1 --only frontend-architecture`, and run `scripts/verify-installation.py --native`. Confirm remote/local commits agree and the working tree is clean.
+- [x] Record the actual validation, commit/push `main`, install the published core with `scripts/install.ps1 --only frontend-architecture`, and run `scripts/verify-installation.py --native`. Confirm remote/local commits agree and the working tree is clean.
