@@ -1,12 +1,13 @@
 # Installed frontend skills audit
 
-Inspected 2026-09-28. All 14 user-level frontend/visual skills below are enabled and permit implicit invocation. The three Sites skills are available through the current desktop session; the separate CLI probe does not list that connected plugin. No duplicate names were found among these active skills. Pre-existing skills and Codex configuration were preserved.
+Inspected 2026-09-28. All 15 user-level frontend/visual skills below are enabled and permit implicit invocation. The three Sites skills are available through the current desktop session; the separate CLI probe does not list that connected plugin. No duplicate names were found among these active skills. Pre-existing skills and Codex configuration were preserved.
 
-Paths use `~` for the Windows user profile. Full absolute paths and machine-specific evidence are saved locally in `.verification/frontend-skills-audit.json`. This table records the initial installation snapshot; later core receipts may identify a newer publication commit with identical skill files. A folder hash from the pre-existing skills lockfile is **not** a Git commit; versions not recorded by upstream are not invented.
+Paths use `~` for the Windows user profile. Full absolute paths and machine-specific evidence are saved locally in `.verification/frontend-skills-audit.json`. The personal-skill rows reflect the responsibility split; the unchanged upstream/visual rows retain their inspected provenance. Current personal receipts can identify a documentation-only publication with identical skill files. A folder hash from the pre-existing skills lockfile is **not** a Git commit; versions not recorded by upstream are not invented.
 
 | Skill | Source | Installed path | Version / commit or folder hash | Implicit |
 | --- | --- | --- | --- | --- |
-| `frontend-architecture` | [Osttik/frontend-engineering-skills](https://github.com/Osttik/frontend-engineering-skills) | `~/.agents/skills/frontend-architecture` | version 1.0.0; commit `45c4d59908532cbf4caf28d6f1ed54c707618862` | yes |
+| `frontend-architecture` | [Osttik/frontend-engineering-skills](https://github.com/Osttik/frontend-engineering-skills) | `~/.agents/skills/frontend-architecture` | version 1.2.0; skill-change commit `4d3d237c1f4fe6e5897b48980e2da398d693f922` | yes |
+| `frontend-codebase-conventions` | [Osttik/frontend-engineering-skills](https://github.com/Osttik/frontend-engineering-skills) | `~/.agents/skills/frontend-codebase-conventions` | version 1.0.0; skill-change commit `4d3d237c1f4fe6e5897b48980e2da398d693f922` | yes |
 | `vercel-react-best-practices` | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | `~/.agents/skills/vercel-react-best-practices` | version 1.0.0; commit `063bee94c3f4df8453406c830b0a7df0f2860278` | yes |
 | `vercel-composition-patterns` | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | `~/.agents/skills/vercel-composition-patterns` | version 1.0.0; commit `063bee94c3f4df8453406c830b0a7df0f2860278` | yes |
 | `angular-developer` | [angular/skills](https://github.com/angular/skills) | `~/.agents/skills/angular-developer` | version 1.0; commit `bb6fb990438bb28840ed0cd8f0f08e51c295f1ce` | yes |
@@ -24,6 +25,8 @@ Paths use `~` for the Windows user profile. Full absolute paths and machine-spec
 | `sites:sites-hosting` | OpenAI curated Sites plugin; Git repository not exposed in local manifest | `~/.codex/plugins/cache/openai-curated-remote/sites/0.1.71/skills/sites-hosting` | version 0.1.71; commit not recorded | yes |
 | `sites:sites-preview-troubleshooting` | OpenAI curated Sites plugin; Git repository not exposed in local manifest | `~/.codex/plugins/cache/openai-curated-remote/sites/0.1.71/skills/sites-preview-troubleshooting` | version 0.1.71; commit not recorded | yes |
 
-The new stack has exactly one user-level installation per name. Neither legacy `~/.codex/skills` nor the repository contains another active copy of these four skills. Backups/staging/receipts stay outside discovery. The checkout under `skills/` is authoring source and is not a second `.agents/skills` installation.
+The new stack has exactly one user-level installation per name. Neither legacy `~/.codex/skills` nor the repository contains another active copy of these five stack skills. Backups/staging/receipts stay outside discovery. The checkout under `skills/` is authoring source and is not a second `.agents/skills` installation.
 
 The existing visual-direction skills can complement engineering work and retain their own invocation behavior. This task did not consolidate, disable, or remove them.
+
+The responsibility split preserved the hashes and receipts of all three upstream skills and the file hashes of all 15 unrelated installed user skills. Architecture now governs architectural decisions; conventions governs concrete code organization. Both descriptions and invocation policies were verified through native discovery and the model-visible catalogue.

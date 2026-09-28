@@ -35,7 +35,25 @@ Six further structure cases cover empty React, starter-only React, existing modu
 
 ## Runtime evidence and preservation
 
-Before the split, native `skills/list` with force reload verified the architecture installation and all three upstream skills. The three upstream immutable commits remain recorded in [sources.json](../scripts/sources.json). A local pre-install snapshot records hashes/receipts for those three skills and hashes for 15 unrelated user skills; final installation evidence will be recorded after publishing the changed skills.
+The feature commit `4d3d237c1f4fe6e5897b48980e2da398d693f922` was pushed to the existing repository. PowerShell installed both personal skills from that immutable published commit using Codex's official download helper. A repeat through Git Bash returned `unchanged` for both.
+
+| Skill | Version | Installed files | Source |
+| --- | --- | --- | --- |
+| frontend-architecture | 1.2.0 | 8 | Existing personal repository, published main |
+| frontend-codebase-conventions | 1.0.0 | 14 | Same published immutable commit |
+| vercel-react-best-practices | 1.0.0 | 76 | 063bee94c3f4df8453406c830b0a7df0f2860278 |
+| vercel-composition-patterns | 1.0.0 | 14 | 063bee94c3f4df8453406c830b0a7df0f2860278 |
+| angular-developer | 1.0 | 41 | bb6fb990438bb28840ed0cd8f0f08e51c295f1ce |
+
+Each skill is installed at `~/.agents/skills/<name>`. Native `skills/list` with `forceReload: true` finds each name exactly once, enabled at user scope, using the intended absolute path, with no discovery errors. Both authored skills explicitly allow implicit invocation; the upstream skills retain their documented default. The installed personal trees exactly match the published checkout and provenance receipts.
+
+Native `codex debug prompt-input` includes all five names and the updated distinct personal descriptions in the model-visible skill catalogue. It makes no model call. The primary assistant's semantic assessment remains separate from this real runtime availability check.
+
+All three upstream content hashes **and receipts** match the pre-install baseline. All 15 unrelated user skill trees retain identical file hashes. No duplicate/stale active installation was found; the architecture installation has only its six current references and no deleted implementation files. Its previous managed copy is preserved outside discovery for recovery. No Codex configuration or existing skill lockfile was changed.
+
+Machine evidence: `.verification/installation-responsibility-split.json`, `.verification/prompt-discovery-split.json`, and `.verification/preservation-after-split.json`. The final receipt may advance to a documentation-only publication with identical skill content.
+
+A fresh native app-server force reload succeeded without restarting the desktop. The current documentation describes automatic change detection; newly initialized contexts receive these skills. The desktop's separate daemon control socket was unavailable during the earlier probe, so no disruptive desktop restart was attempted. No manual action is needed for the verified runtime; an unusually stale open UI can be restarted as a fallback.
 
 Environment: Windows build 26200, PowerShell 7.6.5, Codex CLI 0.155.1, Git 2.53.0, GitHub CLI 2.90.0, and Python 3.14. The existing public repository belongs to Osttik and uses main. No new repository or credential was created.
 

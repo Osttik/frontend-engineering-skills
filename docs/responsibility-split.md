@@ -11,8 +11,8 @@ Architecture covers ownership, dependency boundaries, state, contracts, abstract
 - [x] Update the installer to select both personal skills by default and retain independent selection and pinned upstream sources.
 - [x] Extend metadata/link/footprint validation and activation fixtures; test stale-file removal and install/update safety.
 - [x] Update the README responsibility matrix and evidence documentation.
-- [ ] Commit and push to the existing repository, install both from the published commit, verify native discovery and provenance, and confirm upstream hashes remain unchanged.
-- [ ] Record observed results, publish the evidence, refresh receipts, and confirm a clean working tree and matching remote.
+- [x] Commit and push to the existing repository, install both from the published commit, verify native discovery and provenance, and confirm upstream hashes remain unchanged.
+- [x] Record observed results, publish the evidence, refresh receipts, and confirm a clean working tree and matching remote.
 
 Validation uses the bundled skill validator, repository metadata/link checks, installer safety tests, an activation matrix with explicitly stated evaluation method, native `skills/list` with force reload, and hashes/provenance for all five installations. Local machine evidence belongs in ignored `.verification/`.
 
@@ -27,3 +27,11 @@ Deleted architecture references: `react-project-structure.md`, `typescript-contr
 Created conventions files: `SKILL.md`, `agents/openai.yaml`, and twelve references: `project-structure.md`, `files-and-modules.md`, `api-and-data-access.md`, `constants-and-config.md`, `localization.md`, `styling.md`, `naming-and-code-style.md`, `imports-and-public-apis.md`, `types-and-validation.md`, `tests-and-generated-code.md`, `dependencies-and-cleanup.md`, and `ui-quality-and-errors.md`.
 
 The installer defaults to both personal skills and resolves their published repository revision once. The three canonical upstream source pins are unchanged. Staging and backups stay outside discovery; replaced installation trees cannot retain deleted references.
+
+## Observed outcome
+
+Published skill-change commit: `4d3d237c1f4fe6e5897b48980e2da398d693f922`. Both skills were installed from GitHub: architecture at `C:/Users/lolol/.agents/skills/frontend-architecture` and conventions at `C:/Users/lolol/.agents/skills/frontend-codebase-conventions`.
+
+Both bundled validators and repository metadata/link/footprint/separation checks passed; all 12 installer tests passed. All 26 activation fixtures align with the primary assistant's semantic assessment, including the 14 required prompts. This assessment does not claim live model selection. Native force-reload discovery and the model-visible catalogue verify availability, distinct descriptions, and implicit policy.
+
+The final stack has one enabled user copy per name. There are no stale active references or duplicate installations. The three upstream hashes/receipts and 15 unrelated user skill trees are preserved. Repeating installation leaves both personal copies unchanged. Manual action: none for the verified runtime. Detailed checks and limits are in [validation results](validation.md).
