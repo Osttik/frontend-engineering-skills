@@ -15,6 +15,23 @@ import time
 from skill_stack import SOURCES, default_destination, discovery_roots, installations, read_receipt, tree_hashes
 
 
+def implicit_policy(folder: Path) -> str:
+    """Verify the documented boolean policy, without a YAML runtime dependency."""
+    metadata = folder / "agents/openai.yaml"
+    if not metadata.exists():
+        return "enabled (documented default)"
+    text = metadata.read_text(encoding="utf-8-sig")
+    # All four canonical skills use block YAML or omit this metadata entirely.
+    if not re.search(r"\ballow_implicit_invocation\b", text):
+        return "enabled (documented default)"
+    match = re.search(r"^\s+allow_implicit_invocation:\s*(true|false)\s*(?:#.*)?$", text, re.M)
+    if not match:
+        raise ValueError(f"Cannot verify invocation policy in {metadata}; inspect its YAML")
+    if match[1] != "true":
+        raise ValueError(f"Implicit invocation is disabled in {metadata}")
+    return "enabled (explicit policy)"
+
+
 def native_discovery(cwd: Path) -> dict:
     binary = shutil.which("codex.cmd" if os.name == "nt" else "codex")
     if not binary:
@@ -91,7 +108,13 @@ def main() -> int:
             errors.append("Receipt is missing an immutable source commit")
         elif not target.is_dir() or tree_hashes(target) != receipt.get("hashes"):
             errors.append("Installed content differs from receipt")
-        report["skills"].append({"name": name, "repo": source["repo"], "path": str(target), "commit": receipt.get("commit") if receipt else None, "files": len(receipt.get("hashes", {})) if receipt else 0, "errors": errors})
+        implicit = None
+        if target.is_dir():
+            try:
+                implicit = implicit_policy(target)
+            except ValueError as error:
+                errors.append(str(error))
+        report["skills"].append({"name": name, "repo": source["repo"], "path": str(target), "commit": receipt.get("commit") if receipt else None, "implicit_invocation": implicit, "files": len(receipt.get("hashes", {})) if receipt else 0, "errors": errors})
         report["errors"].extend(f"{name}: {error}" for error in errors)
     if args.native:
         native = native_discovery(args.cwd)
@@ -106,6 +129,8 @@ def main() -> int:
                 matches = [skill for skill in entry.get("skills", []) if skill["name"] == name]
                 if len(matches) != 1 or not matches[0].get("enabled"):
                     report["errors"].append(f"Native discovery: {name} must appear once and be enabled")
+                elif matches[0].get("scope") != "user" or Path(matches[0]["path"]).resolve() != (destination / name / "SKILL.md").resolve():
+                    report["errors"].append(f"Native discovery: {name} must use the intended user-level installation")
                 elif matches[0].get("policy", {}).get("allowImplicitInvocation") is False:
                     report["errors"].append(f"Native discovery: {name} is explicit-only")
     if args.output:

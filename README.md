@@ -118,7 +118,7 @@ python -m unittest discover -s tests -v
 
 Only authoring validation requires PyYAML; it is already used by Codex's official validator. If absent, install it in a development virtual environment. Installation and discovery verification use Python's standard library.
 
-The native verifier calls `skills/list` with `forceReload: true` in a fresh local Codex app-server, checks enabled/unique skills, and verifies installed hashes against commit receipts. It makes no model request. It does not restart the desktop app or interfere with an existing chat. [Validation evidence](docs/validation.md) distinguishes native discovery from semantic activation emulation.
+The native verifier calls `skills/list` with `forceReload: true` in a fresh local Codex app-server, checks enabled/unique skills and implicit policy, and verifies installed hashes against commit receipts. It makes no model request. It does not restart the desktop app or interfere with an existing chat. [Validation evidence](docs/validation.md) distinguishes native discovery from semantic activation emulation; the [frontend skills audit](docs/installed-skills-audit.md) records complementary existing skills and provenance.
 
 Change the narrow reference responsible for a decision. Keep the router concise and add/update its routing link only when necessary. Run `validate.py`, the built-in `skill-creator/scripts/quick_validate.py`, and safety tests. Review [activation prompts](tests/activation-cases.json) against the actual descriptions; do not implement a fake keyword matcher and call it a model test. Push accepted changes before installing, since GitHub is the source of truth.
 
