@@ -18,3 +18,13 @@ Execution and evidence:
 - Evaluate frontend, React, Angular, contextual-state, and backend-only prompts; label semantic emulation separately from real model execution. Record actual evidence and limitations in `docs/validation.md` and local machine-specific audit output.
 
 Success means remote files are present on the default branch, the checkout is clean, all four installed skills are enabled and discoverable, references and metadata validate, safety tests pass, and activation expectations have been evaluated without claiming guarantees for future model selection.
+
+## React default structure update
+
+The user now requires a consistent structure for React projects when no established application layout exists. Keep existing conventions authoritative. Use a feature-oriented default, adapted to framework-required routing. A full FSD taxonomy would add unnecessary layers; generic top-level folders by technical type would scatter feature ownership.
+
+- [x] Add `references/react-project-structure.md` with a concrete plain React tree, Next.js adaptations, dependency direction, placement decisions, and no empty scaffolding.
+- [x] Link it from the router only for React layout decisions. Bump skill metadata to `1.1.0`, retain implicit invocation, and keep the router within its original size budget.
+- [x] Make `scripts/validate.py` check all actual reference files against direct router links rather than a fixed count; update README and activation fixtures.
+- [x] Run `python scripts/validate.py` and bundled `quick_validate.py`; assess blank React, starter-only React, existing custom structure, Next App Router, Next Pages Router, and explicit user structure cases.
+- [ ] Record the actual validation, commit/push `main`, install the published core with `scripts/install.ps1 --only frontend-architecture`, and run `scripts/verify-installation.py --native`. Confirm remote/local commits agree and the working tree is clean.

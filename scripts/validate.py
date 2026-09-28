@@ -38,8 +38,10 @@ def main():
                 local = (path.parent / target.split("#")[0]).resolve()
                 assert local.is_file(), f"Missing link from {path}: {target}"
                 links.append(local.relative_to(ROOT).as_posix())
-    reference_links = {p for p in links if p.startswith("skills/frontend-architecture/references/")}
-    assert len(reference_links) == 13, "Router must expose the 13 focused references"
+    router_targets = re.findall(r"\[[^\]]*\]\((references/[^)]+)\)", text)
+    reference_links = {(SKILL / target).relative_to(ROOT).as_posix() for target in router_targets}
+    actual_references = {path.relative_to(ROOT).as_posix() for path in (SKILL / "references").glob("*.md")}
+    assert reference_links == actual_references, "Router must directly expose every focused reference"
     lines = len(text.splitlines())
     assert lines < 200, "Router exceeds requested line budget"
     # An estimate, not a claim of exact model tokenization.

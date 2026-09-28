@@ -2,6 +2,16 @@
 
 The stack was created, published, installed from canonical GitHub sources, and verified on Windows build 26200 with PowerShell 7.6.5, Codex CLI 0.155.1, Git 2.53.0.windows.2, GitHub CLI 2.90.0, Node 22.21.0, npm 10.9.0, and Python 3.14. GitHub authentication belonged to `Osttik`; no credentials were created, copied, or committed. The repository is public with default branch `main`.
 
+## React default structure — version 1.1.0
+
+The user requested an enforced default for React work when no application structure exists. The skill now routes that case to `react-project-structure.md`, with a feature-oriented layout and Next.js router adaptations. Existing intentional architecture and explicit user layout choices retain precedence. Only needed files/folders are created; no full FSD taxonomy, new store/library, or unrelated migration is required.
+
+Validation passed for the updated schema and every direct reference link: 69 router lines, 9,854 characters, approximately 2,464 tokens by characters/4, 14 references, and 17 activation fixtures. The description now explicitly includes application structure, and metadata version is `1.1.0`.
+
+Six added cases were evaluated by semantic emulation: empty React application, starter-only React scaffold, established `src/modules` layout, Next.js App Router, Next.js Pages Router, and explicit `src/domains` user choice. Each matched the reference's intended placement and precedence. No live model execution is claimed. Detailed local results are in `.verification/react-structure-activation.json`.
+
+The original release checks and installation snapshot below are retained as historical evidence; the latest precise installed commit and content hashes are recorded by the local native verifier.
+
 ## Authoring checks
 
 - Codex's bundled `skill-creator/scripts/quick_validate.py`: passed for the authored skill and all three installed upstream skills.

@@ -1,10 +1,10 @@
 ---
 name: frontend-architecture
-description: "Use for frontend engineering: create, modify, review, debug, refactor, or design React, Angular, Vue, Svelte, or browser TypeScript/JavaScript application code. Guide component boundaries, state ownership, data/API contracts, design systems, accessibility, testing, security, and maintainability. Apply to state-placement questions in frontend context; exclude backend-only work and visual-only image generation."
+description: "Use for frontend engineering: create, modify, review, debug, refactor, or design React, Angular, Vue, Svelte, or browser TypeScript/JavaScript application code and structure. Guide component boundaries, state ownership, data/API contracts, design systems, accessibility, testing, security, and maintainability. Apply to state-placement questions in frontend context; exclude backend-only work and visual-only image generation."
 license: MIT
 metadata:
   author: Osttik
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Frontend Architecture
@@ -24,6 +24,7 @@ Make frontend changes with explicit ownership, predictable data flow, and usable
 | Decision in the current task | Read |
 | --- | --- |
 | Module ownership, imports, dependency cycles, feature structure, architecture review | [Architecture boundaries](references/architecture-boundaries.md) |
+| React project layout with no established structure | [React project structure](references/react-project-structure.md) |
 | Component responsibility, reusable APIs, variants, composition, content slots | [Component design](references/component-design.md) |
 | Where state lives, shared ownership, derived values, remote cache | [State ownership](references/state-ownership.md) |
 | Data fetching, DTO mapping, races, cache invalidation, optimistic writes | [Data and API boundaries](references/data-and-api-boundaries.md) |
@@ -36,8 +37,6 @@ Make frontend changes with explicit ownership, predictable data flow, and usable
 | Measured responsiveness, bundle/network/rendering bottlenecks | [Performance](references/performance.md) |
 | Untrusted content, URLs, credentials, access checks, dependencies | [Security](references/security.md) |
 | Choosing or evaluating a methodology, greenfield structure | [Architecture methodologies](references/architecture-methodologies.md) |
-
-An API-backed form usually needs data/API and routing/forms guidance. A component refactor needs component design; add styling if its design-system boundary changes. Select review references from observed issues.
 
 ## Essential decisions
 
@@ -59,7 +58,7 @@ An API-backed form usually needs data/API and routing/forms guidance. A componen
 
 ## Framework-specific guidance
 
-For React or Next.js, also consult installed `vercel-react-best-practices` for performance/engineering and `vercel-composition-patterns` for component APIs/composition. Load relevant rule files rather than entire generated `AGENTS.md` manuals. Resolve conflicts using user intent, project version/conventions, and evidence. Preserve encapsulation while choosing efficient public imports.
+For React/Next.js without an established application layout, follow the React project structure reference above. Also consult installed `vercel-react-best-practices` for performance/engineering and `vercel-composition-patterns` for composition. Read relevant rules, not entire `AGENTS.md` manuals. Respect user intent, project version/conventions, and efficient public imports.
 
 For Angular, also consult installed `angular-developer` for components, signals, DI, services, RxJS integration, HTTP, routing, forms, SSR, accessibility, testing, and tooling. Use targeted references. Preserve the existing version and form/state conventions unless a migration is requested or necessary.
 

@@ -8,7 +8,7 @@ It does not impose FSD, Atomic Design, Redux, a global store, microfrontends, co
 
 ## Progressive disclosure
 
-Codex first sees the name and description. When relevant, it reads [SKILL.md](skills/frontend-architecture/SKILL.md), a concise router. It then reads only the references needed for the current decision. An ordinary change does not require loading 13 references or a generated framework manual.
+Codex first sees the name and description. When relevant, it reads [SKILL.md](skills/frontend-architecture/SKILL.md), a concise router. It then reads only the references needed for the current decision. An ordinary change does not require loading all 14 references or a generated framework manual.
 
 ```text
 skills/frontend-architecture/
@@ -21,11 +21,17 @@ skills/frontend-architecture/
     routing-and-forms.md            accessibility.md
     errors-and-observability.md     testing.md
     performance.md                  security.md
-    architecture-methodologies.md
+    architecture-methodologies.md   react-project-structure.md
 scripts/                           installer, verifier, validator, source manifest
 tests/                             installer safety tests and activation prompts
 docs/                              design/plan and validation evidence
 ```
+
+## React default structure
+
+When a React project has no established application layout, follow the [feature-oriented default](skills/frontend-architecture/references/react-project-structure.md): `src/app` for composition, `src/features/<name>` for feature-owned code, `src/components/ui` for generic primitives, and small shared `lib`, `styles`, and `assets` folders when needed. Keep feature hooks, API adapters, models, and tests with their feature. Create only the files/subfolders the task needs.
+
+Existing intentional structures and explicit user choices take precedence. A starter-only scaffold qualifies for the default; a different consistent existing layout does not. Next.js uses its native `app` or `pages` routing tree instead of the plain React bootstrap arrangement. This is a lightweight default, not mandatory FSD or a request to restructure unrelated code.
 
 ## Automatic and manual use
 
