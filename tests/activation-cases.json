@@ -1,0 +1,13 @@
+[
+  {"prompt": "Review the architecture of this TypeScript frontend feature.", "context": "Browser application", "expected": ["frontend-architecture"]},
+  {"prompt": "Refactor this React component and improve its component API and performance.", "context": "React application", "expected": ["frontend-architecture", "vercel-composition-patterns", "vercel-react-best-practices"]},
+  {"prompt": "Implement this Angular feature using modern Angular patterns.", "context": "Angular application", "expected": ["frontend-architecture", "angular-developer"]},
+  {"prompt": "Refactor this React component.", "context": "React application", "expected": ["frontend-architecture", "vercel-composition-patterns", "vercel-react-best-practices"]},
+  {"prompt": "Add a new Angular settings page.", "context": "Angular application", "expected": ["frontend-architecture", "angular-developer"]},
+  {"prompt": "Review this frontend architecture.", "context": "Frontend application", "expected": ["frontend-architecture"]},
+  {"prompt": "Where should this state live?", "context": "A frontend filter used by two browser components", "expected": ["frontend-architecture"]},
+  {"prompt": "Create a backend database migration.", "context": "Backend-only task", "expected": []},
+  {"prompt": "Optimize this PostgreSQL query.", "context": "Backend-only task", "expected": []},
+  {"prompt": "Improve this Vue form and its API error handling.", "context": "Vue application", "expected": ["frontend-architecture"]},
+  {"prompt": "Fix a race in this Svelte browser search feature.", "context": "Svelte application", "expected": ["frontend-architecture"]}
+]

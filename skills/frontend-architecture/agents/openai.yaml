@@ -1,0 +1,6 @@
+interface:
+  display_name: "Frontend Architecture"
+  short_description: "Frontend boundaries, state, contracts, and maintainability"
+  default_prompt: "Use $frontend-architecture to inspect this frontend feature and implement the smallest coherent improvement."
+policy:
+  allow_implicit_invocation: true
