@@ -1,23 +1,23 @@
 # State ownership
 
-Use when choosing where state lives or fixing inconsistent data flow.
+Choose the authority, lifetime, consumers, and source of truth before selecting a storage mechanism. Classify only the state relevant to the task:
 
-| State category | Default owner and lifecycle |
+| State | Typical authority and lifetime |
 | --- | --- |
-| Local UI | Component or smallest coordinating parent; closes/resets with that interaction |
-| Remote/server | Existing query/cache or data-access layer; key, freshness, invalidation, and request lifecycle |
-| Domain/application | Feature/application owner when workflow spans views; explicit commands and reset boundaries |
-| Form | Form owner; values, validation, dirty/touched, submission, and reset |
-| URL/navigation | Router/URL for bookmarkable filters, paging, and navigation identity |
-| Persistent client | Narrow persistence adapter; schema, scope, expiry/migration, and logout cleanup |
-| Derived | Computed from authoritative inputs; normally no independently stored copy |
+| Local UI | Interaction owner; often ends with that interaction |
+| Server/remote | Remote system, represented by the application's existing cache owner |
+| Domain/application | Owner of a business workflow or client application capability |
+| Form | Form interaction and submission owner; distinct from the persisted remote record |
+| URL/navigation | Navigation contract for shareable, bookmarkable, history-sensitive state |
+| Persistent client | Explicit persistence owner with defined version, reset, and expiry behavior |
+| Derived | Computation from authoritative inputs, rather than an additional stored authority |
 
-1. Identify the source of truth, consumers, update events, and lifetime. Ask who may mutate it and what resets it on route, user, or tenant changes.
-2. Keep state close to its consumers. Lift it to their smallest useful common owner before considering a global store. Two readers are not evidence of application-wide lifetime.
-3. Use the existing mechanism unless it causes a concrete issue. Choose a store for coordination requirements, not as a default for all data.
-4. Derive totals, filters, flags, and view projections from canonical inputs. Store an editable draft or expensive snapshot only when its distinct lifecycle is intentional; define reconciliation explicitly.
-5. Leave fetched data, retries, freshness, deduplication, and invalidation with the remote cache. Put selected IDs or business workflow state in application state when needed, rather than copying cache entities into it.
-6. Model transitions so impossible combinations cannot occur. Avoid separate flags that allow both `submitting` and `submitted-with-error` without a defined meaning.
-7. Clean up subscriptions/listeners and cancel or ignore obsolete work. Partition per-user/per-tenant data and clear appropriate persisted/cache state at identity changes. Avoid SSR request state in process-wide mutable variables.
+Keep state local until its lifetime or coordination genuinely needs a broader owner. Two components reading a value do not automatically justify a global store. A common interaction owner may be sufficient.
 
-Explain a state-placement decision as: owner, lifetime, authoritative input, mutation path, and reason a broader scope is or is not needed. Interpret an ambiguous state question using frontend project context; do not assume that backend state belongs to this skill.
+Separate remote cache from local workflow state. Avoid independently storing the same server entity in a global store and a cache without a defined synchronization authority. A form draft may intentionally differ from the last server value; specify what happens on refetch, cancel, submit, and navigation.
+
+Use URL state for an actual navigation contract, not every transient input. Persist only what needs to survive its ordinary owner, and assign migration/reset responsibility. Derive filtered lists, totals, and other computations from authoritative inputs when practical.
+
+For concurrent operations, define which result is authoritative and who owns cancellation, request ordering, rollback, and invalidation. Do not distribute competing authorities across consumers. Concrete query-library usage belongs to implementation guidance.
+
+Review outcome: name each relevant state category, authority, lifetime, consumers, and reset/transition behavior. Explain why a broader scope or new store is needed before introducing it.

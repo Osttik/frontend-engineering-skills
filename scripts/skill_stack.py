@@ -10,6 +10,7 @@ import subprocess
 import uuid
 
 SOURCES = json.loads(Path(__file__).with_name("sources.json").read_text(encoding="utf-8"))
+PERSONAL_SKILLS = ("frontend-architecture", "frontend-codebase-conventions")
 
 
 def default_destination() -> Path:

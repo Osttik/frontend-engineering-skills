@@ -1,12 +1,13 @@
-# Architecture boundaries
+# Ownership and dependency boundaries
 
-Use when a change crosses modules or when reviewing structure and imports.
+Choose owners by responsibility and reason to change. A feature owns a user capability such as checkout. A domain concept owns reusable business meaning such as a monetary amount or customer identity. Shared infrastructure owns domain-neutral capability. Application composition coordinates independently owned responsibilities. These are conceptual distinctions, not a required filesystem hierarchy.
 
-1. Map existing route/feature/domain ownership and trace actual dependencies. Inspect public exports, aliases, package boundaries, and dependency checks before proposing folders.
-2. Place the change with the responsibility that owns its behavior. Keep feature-specific code near its callers. Move something to shared infrastructure only when multiple owners share the same semantic contract and lifecycle.
-3. Define a small public interface at the boundary. Import another module through its supported entrypoints, including deliberate subpath exports. Avoid deep imports into private implementation. Do not require an all-inclusive barrel; preserve tree shaking and package export behavior.
-4. Prefer a dependency direction that keeps business decisions independent of rendering and transport details when those concerns evolve separately. Inject an interface or move orchestration to a common owner to break a demonstrated cycle; do not create interfaces for every function.
-5. Keep side effects and initialization visible at composition boundaries. Avoid import-time subscriptions, global mutable state, or accidental singletons that survive user/tenant changes or SSR requests.
-6. Add or update existing lint/package rules when a boundary has recurring violations. Verify aliases and build/runtime resolution together.
+Start with the existing architecture. Document a dependency rule only when it makes an actual collaboration understandable or prevents a demonstrated failure. Domain-neutral infrastructure should not silently acquire business policy; a feature should not reach into another feature's private implementation. Consumers depend on a deliberate semantic contract rather than every detail of an owner.
 
-For an architecture review, produce a short map of owners, problematic import paths, and concrete consequences. Prefer a targeted boundary repair over moving the entire repository. A small application can use straightforward feature folders without a formal methodology.
+A public architectural contract states the operations, values, events, and ownership guarantees available to consumers. It need not expose a whole implementation. How exports and imports realize that contract is an implementation convention.
+
+Resolve cycles by tracing their real cause: misplaced behavior, shared meaning with no owner, two responsibilities that are actually one, or coordination happening at the wrong level. Move only the responsibility that belongs elsewhere. A smaller contract or orchestration by an existing composition owner is often sufficient; a global event bus is not an automatic remedy.
+
+Use direct calls or values when they fit the existing collaboration. Events are useful for truly independent reactions with defined payload, lifetime, ordering, and failure handling; they can obscure a sequential workflow. Dependency inversion earns its cost when an owner should express a policy without knowing a volatile implementation.
+
+Review outcome: identify each owner, the permitted direction of dependencies, the semantic contract between them, and the failure the proposed change prevents. Do not reorganize a coherent application just to match a preferred methodology.

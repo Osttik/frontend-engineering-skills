@@ -5,6 +5,12 @@
     "ref": "main",
     "license": "MIT"
   },
+  "frontend-codebase-conventions": {
+    "repo": "Osttik/frontend-engineering-skills",
+    "path": "skills/frontend-codebase-conventions",
+    "ref": "main",
+    "license": "MIT"
+  },
   "vercel-react-best-practices": {
     "repo": "vercel-labs/agent-skills",
     "path": "skills/react-best-practices",

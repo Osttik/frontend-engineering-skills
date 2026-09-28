@@ -1,69 +1,56 @@
 ---
 name: frontend-architecture
-description: "Use for frontend engineering: create, modify, review, debug, refactor, or design React, Angular, Vue, Svelte, or browser TypeScript/JavaScript application code and structure. Guide component boundaries, state ownership, data/API contracts, design systems, accessibility, testing, security, and maintainability. Apply to state-placement questions in frontend context; exclude backend-only work and visual-only image generation."
+description: Use for frontend architectural decisions and reviews involving behavior ownership, feature/domain/shared boundaries, dependency direction, state or server-cache ownership, API/domain/UI separation, semantic component contracts, abstraction tradeoffs, and architectural evolution. Apply when designing substantial frontend features or restructuring their responsibilities in React, Angular, Vue, Svelte, or browser TypeScript/JavaScript. Ordinary implementation, file placement, imports, naming, and code cleanup alone do not require this skill; exclude backend-only work.
 license: MIT
 metadata:
   author: Osttik
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # Frontend Architecture
 
-Make frontend changes with explicit ownership, predictable data flow, and usable interfaces. Apply this framework-neutral skill to the frontend portion of the task. The user's requirements take precedence over these guidelines; keep work within the requested scope.
+Make ownership and collaboration between frontend responsibilities explicit. Preserve a coherent existing architecture; change it when a demonstrated problem warrants the cost. Choose the smallest structural intervention that resolves that problem. This skill guides architectural decisions, not filesystem layout or everyday code conventions.
 
-## Inspect before deciding
+## Establish the decision
 
-1. Inspect project instructions, manifests, framework versions, module APIs, neighboring components, state/data patterns, and available checks. Trace a representative flow from user action through state and data access to rendering.
-2. Identify the concrete problem and the responsibilities affected. Use the existing architecture unless it materially causes that problem. Make the smallest coherent change; do not restructure the project to satisfy a theoretical preference.
-3. Choose references for actual decisions below. Read no unrelated references or entire directories. For a simple edit, the essentials here may suffice. Open another reference only when another concern emerges.
-4. Consult relevant installed framework skills as described below. Check guidance against the project's installed version before using newer APIs.
-5. Implement the change, preserve observable behavior unless asked to change it, and verify the affected behavior with the project's relevant checks. Report the result, important tradeoffs, and any verification limit.
+Identify the user-visible behavior, existing owners, consumers, contracts, and constraints. Read the affected implementation and its current dependencies before proposing a new boundary. A review should explain an observed consequence; a feature design should explain how its responsibilities will cooperate.
 
-## Route to the decision
+Ask whether the change requires a new owner, dependency rule, state lifetime, or contract. A small validation edit, import cleanup, or utility-file split usually requires implementation conventions rather than architectural redesign. Implementing checkout, separating transport from business behavior, or restructuring an unorganized application can require both kinds of reasoning.
 
-| Decision in the current task | Read |
+Do not force FSD, global state, domain layers, microfrontends, or a migration simply because a diagram is available. Existing architecture takes priority unless materially broken. Honor explicit user choices and framework constraints. An abstraction should remove meaningful coupling or clarify responsibility, not merely create another indirection.
+
+## Read only relevant references
+
+| Decision | Reference |
 | --- | --- |
-| Module ownership, imports, dependency cycles, feature structure, architecture review | [Architecture boundaries](references/architecture-boundaries.md) |
-| React project layout with no established structure | [React project structure](references/react-project-structure.md) |
-| Component responsibility, reusable APIs, variants, composition, content slots | [Component design](references/component-design.md) |
-| Where state lives, shared ownership, derived values, remote cache | [State ownership](references/state-ownership.md) |
-| Data fetching, DTO mapping, races, cache invalidation, optimistic writes | [Data and API boundaries](references/data-and-api-boundaries.md) |
-| TypeScript models, external inputs, contracts, union states | [TypeScript contracts](references/typescript-contracts.md) |
-| Tokens, primitive versus domain UI, themes, responsive styling | [Design system and styling](references/design-system-and-styling.md) |
-| Routes, navigation/URL state, forms, validation/submission | [Routing and forms](references/routing-and-forms.md) |
-| Interactive semantics, keyboard/focus behavior, accessible errors | [Accessibility](references/accessibility.md) |
-| Error containment, recovery, diagnostics, production reporting | [Errors and observability](references/errors-and-observability.md) |
-| Test scope, regression coverage, enforcing dependency rules | [Testing](references/testing.md) |
-| Measured responsiveness, bundle/network/rendering bottlenecks | [Performance](references/performance.md) |
-| Untrusted content, URLs, credentials, access checks, dependencies | [Security](references/security.md) |
-| Choosing or evaluating a methodology, greenfield structure | [Architecture methodologies](references/architecture-methodologies.md) |
+| Feature/domain/shared ownership, dependency direction, communication, cycles | [Architecture boundaries](references/architecture-boundaries.md) |
+| Component responsibility, semantic contracts, composition, abstraction | [Component design](references/component-design.md) |
+| Local, server, domain, form, URL, persistent, and derived state ownership | [State ownership](references/state-ownership.md) |
+| Transport, domain, presentation contracts and mutation coordination | [Data and API boundaries](references/data-and-api-boundaries.md) |
+| Vertical slices, domain modules, FSD, Atomic Design, incremental evolution | [Architecture methodologies](references/architecture-methodologies.md) |
+| Recovery, verification, accessibility, security, performance ownership | [Quality boundaries](references/quality-boundaries.md) |
 
-## Essential decisions
+Read the reference for the actual decision; do not load the entire library for an ordinary request.
 
-- **Respect dependency boundaries.** Give each feature/domain a clear owner and expose deliberate public APIs. Prefer one-directional dependencies where practical; avoid cycles and imports into another module's internals. Do not let `shared`, `common`, `helpers`, or `utils` accumulate unrelated responsibilities. A public API can be a narrow exported subpath; it need not be a barrel that harms tree shaking.
-- **Separate concerns where the separation pays for itself.** Keep rendering, data access, business rules, and state ownership understandable. Use `API DTO != Domain Model != View Model` when contracts, behavior, or representation differ; do not mechanically create three copies of every simple record.
-- **Decompose by meaning.** Split independently changing responsibilities, independently testable behavior, meaningful reusable concepts, excessive conditional complexity, or unclear APIs. Judge semantic complexity rather than component line count. Do not mandate a component LOC threshold.
-- **Earn abstractions.** Share code when it expresses the same responsibility and semantic concept with the same reason to change. Similar syntax alone does not justify abstraction. Prefer a little duplication to coupling unrelated features through the wrong shared interface.
-- **Design semantic component APIs.** Prefer composition and slots/children/content projection for varying content. Use explicit variants for meaningful modes and headless behavior when behavior needs multiple presentations. Make controlled versus uncontrolled ownership clear. Avoid boolean-prop combinations that permit contradictory states. Preserve native element capabilities.
-- **Name the state owner first.** Classify local UI, remote/server, application/domain, form, URL/navigation, persistent client, and derived state where useful. Keep state as local as practical. Two consumers alone do not justify a global store. Derive values rather than synchronizing redundant copies; keep remote-cache ownership distinct from ordinary application state.
-- **Model data outcomes.** Give API boundaries explicit inputs and outputs. Handle loading, empty, success, and error states; consider cancellation, stale responses, pagination, cache invalidation, deduplication, and optimistic rollback only when relevant to the flow. Validate external inputs when types cannot guarantee their runtime shape.
-- **Keep contracts truthful.** Prefer strict TypeScript, `unknown` at untrusted boundaries, domain-specific types, and discriminated unions with exhaustive handling. Justify and contain `any` escape hatches. Use readonly contracts or immutability when they protect ownership; avoid elaborate types without a concrete benefit.
-- **Build accessibility into the behavior.** Prefer semantic HTML and native controls; provide labels, accessible names, keyboard operation, and intentional focus management. Add ARIA when native semantics are insufficient. Respect reduced motion when motion is part of the interaction.
-- **Recover at the right boundary.** Distinguish field/component/feature/route/application errors, expected network failures, and unexpected exceptions. Provide useful recovery and sanitized diagnostics. Do not swallow exceptions or substitute arbitrary console output for error ownership.
-- **Measure performance before optimizing.** Use measure → identify bottleneck → optimize → verify. Consider bundle size, lazy loading, waterfalls, rendering, expensive computation, virtualization, media, caching, and unnecessary requests. Avoid speculative memoization or rewriting architecture without evidence.
-- **Verify behavior at the useful layer.** Choose unit, component, integration, E2E, or architectural boundary checks for the failure being prevented. Test user-observable behavior and domain outcomes. Enforce valuable dependency rules in existing tooling where practical; do not add a test stack for a trivial edit.
-- **Treat the client as untrusted.** Handle XSS, unsafe HTML/URLs, frontend secret exposure, token handling, and dependency risks at their real boundaries. Client access checks provide UX; a hidden button is not authorization. Require server enforcement of protected operations.
-- **Use project design tokens.** Keep generic design-system primitives separate from business components. Reuse semantic colors, spacing/typography scales, theme conventions, responsive rules, and existing styling boundaries before introducing arbitrary values.
-- **Keep methodology optional.** Do not force FSD, Atomic Design, Redux, global stores, or microfrontends. Follow an established methodology or choose one for a greenfield project when it addresses a demonstrated coordination problem. Atomic Design organizes UI/design-system concepts; it is not a complete application architecture.
+## Architectural invariants
 
-## Framework-specific guidance
+- **Give behavior an owner.** A user capability belongs to its feature; reusable business meaning belongs to a domain concept; domain-neutral capability belongs to shared infrastructure. Application composition coordinates them. Similar code does not establish shared semantics.
+- **Respect direction.** Keep dependencies consistent with the existing architecture. A feature should not depend on another feature's private implementation. Resolve cycles through a real shared concept, a smaller contract, dependency inversion, or composition by an appropriate owner.
+- **Separate concerns when they differ.** Transport/API DTO, domain/application model, and presentation model serve different contracts when representations or behavior differ. Do not mechanically manufacture three copies of a simple record.
+- **Earn abstraction.** Shared responsibility, consumers, and reason to change should align. Prefer limited duplication to binding unrelated features to the wrong shared concept. Introduce an interface when it isolates a meaningful policy or volatile boundary.
+- **Design semantic component contracts.** Use composition for variable content and explicit variants for meaningful modes. Clarify controlled versus uncontrolled ownership. Avoid contracts that admit contradictory combinations of state or behavior.
+- **Choose state ownership before machinery.** Keep state as local as its lifetime and consumers permit. Two consumers alone do not justify a global store. Separate remote-cache ownership from application state and derive values rather than synchronizing copies.
+- **Name coordination responsibilities.** A mutation can affect business behavior, server cache, URL state, and presentation. Assign validation, rollback, invalidation, and recovery to clear owners when those concerns exist; do not make every view independently reconstruct the workflow.
+- **Use one semantic source of truth.** Shared status meaning, policy, or contract belongs to an explicit owner. Independent concepts that happen to have equal values should remain independent.
+- **Account for quality at boundaries.** Establish error containment and recovery, meaningful verification, accessibility behavior, server enforcement of protected actions, and evidence for costly performance decisions. Use the quality reference for architectural consequences rather than universal hardening work.
+- **Evolve incrementally.** Start with the existing arrangement, identify the actual coupling or ownership failure, and change the affected boundary. Enforce important rules in existing tooling when practical; avoid a whole-application rewrite to fix one dependency.
 
-For React/Next.js without an established application layout, follow the React project structure reference above. Also consult installed `vercel-react-best-practices` for performance/engineering and `vercel-composition-patterns` for composition. Read relevant rules, not entire `AGENTS.md` manuals. Respect user intent, project version/conventions, and efficient public imports.
+## Cooperating skills
 
-For Angular, also consult installed `angular-developer` for components, signals, DI, services, RxJS integration, HTTP, routing, forms, SSR, accessibility, testing, and tooling. Use targeted references. Preserve the existing version and form/state conventions unless a migration is requested or necessary.
+`frontend-codebase-conventions` governs concrete project/file organization and implementation practice. Select it when the task also involves those concerns. Neither skill requires the other for every request: a state-ownership review can use architecture alone; ordinary file cleanup can use conventions alone.
 
-For Vue, Svelte, or another framework, follow project conventions. If an upstream skill is unavailable, use neutral guidance and consult official framework documentation for needed details. Do not install dependencies or change frameworks solely for this skill.
+For React, use installed `vercel-composition-patterns` when designing component contracts and `vercel-react-best-practices` for relevant runtime/performance details. For Angular, use `angular-developer` for relevant framework behavior. Read targeted references, not entire framework manuals. For other frameworks, preserve project practice and use official documentation when details require verification.
 
-## Finish with evidence
+## Deliver a grounded decision
 
-Run checks for the affected boundary and scope. Ground review findings in concrete files and behavioral consequences. For design, identify owners, contracts, and tradeoffs without requiring a document for every edit. State verification limits and claim only observed test results.
+Explain who owns the behavior and state, how the owners communicate, and why the dependency direction is coherent. Describe the concrete tradeoff and migration cost for significant changes. Tie review findings to implementation evidence and behavioral consequences. Run checks appropriate to changed boundaries, report observed results, and state any verification limits. A simple decision does not require a new architecture document.

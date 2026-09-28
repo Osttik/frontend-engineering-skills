@@ -1,19 +1,15 @@
-# Architecture methodologies
+# Methodologies and architectural evolution
 
-Use when a methodology is already established or a greenfield application needs a structure decision. First inspect actual dependency/ownership problems; a folder taxonomy alone does not fix them.
+A methodology is useful when it resolves a coordination problem. Preserve an established architecture unless its costs or failures justify change. Adopt concepts incrementally rather than translating a whole application into a new vocabulary.
 
-| Approach | Problem it addresses | Useful fit | Tradeoff |
-| --- | --- | --- | --- |
-| Feature-Sliced Design (FSD) | Predictable feature/layer ownership and dependency direction at application scale | Existing FSD projects or teams that benefit from its shared slice/layer vocabulary | Adds classification and migration cost; enforce agreed boundaries rather than moving folders cosmetically |
-| Atomic Design | Vocabulary for composing design-system/UI concepts from primitives to larger assemblies | Component libraries and design/dev collaboration | Primarily a UI taxonomy; does not define API ownership, remote caching, or application workflows |
-| Vertical slices / feature-oriented modules | Co-locate code that changes for one user capability | Small-to-large products with distinct features and frequent delivery | Cross-feature composition needs clear ownership; duplication can precede justified shared contracts |
-| Domain-oriented modules | Align language, rules, and contracts with business domains | Products with meaningful domain invariants and multiple workflows | Domain boundaries require evidence and evolve; avoid elaborate domain layers around simple CRUD |
+- **Vertical slices:** organize responsibility around user capabilities and their complete behavior. Useful when changes repeatedly cross many technical owners for one capability.
+- **Domain-oriented modules:** organize reusable business meaning around stable domain boundaries. Useful when several workflows share genuine rules or concepts.
+- **Feature-Sliced Design:** offers feature, entity, shared, and composition concepts with dependency rules. Use relevant concepts when their boundaries help; do not require every layer or rigid FSD compliance.
+- **Atomic Design:** provides a UI/design-system taxonomy. It does not decide application state, domain ownership, transport boundaries, or feature collaboration.
+- **Microfrontends:** introduce deployment and coordination boundaries. Choose them for demonstrated independent delivery needs, not simply because an application has many screens.
 
-1. Follow the project's established methodology when it serves the task. Fix a violated rule at its boundary rather than replacing the methodology wholesale.
-2. In a new project, choose the least structure that makes owners and dependencies clear. For React without established structure, use the React project structure reference linked by `SKILL.md`; this feature-oriented default does not require FSD. Introduce stronger layering when coordination needs justify it.
-3. Treat FSD as optional. Evaluate it against team scale, actual dependency issues, migration cost, and maintainability; never impose it universally.
-4. Use Atomic Design for UI/design-system classification if useful. Combine it with feature/domain ownership when needed rather than claiming it is a complete application architecture.
-5. Keep state/cache decisions independent of the folder methodology. FSD does not require Redux, and domain modules do not require a global store or microfrontends.
-6. For an approved migration, define a limited seam, public interfaces, dependency checks, and observable behavior to preserve. Migrate incrementally with a concrete benefit and verification path.
+Start by identifying the current failure: ambiguous ownership, prohibited coupling, competing state authorities, unstable contracts, or independent teams blocking one another. Choose the smallest change that addresses that failure. A new abstraction, domain concept, or coordination boundary should have an identifiable consumer and reason to exist.
 
-Explain the chosen approach in terms of the problem it solves and the cost it adds. Preserve established architecture unless it materially causes the problem being addressed.
+Evolve through a scoped change with observable behavior preserved and important contracts verified. Avoid parallel architectures with no transition owner. Describe the intended dependency direction and criteria for further evolution; defer speculative layers until the corresponding complexity appears.
+
+Concrete directory layouts, framework routing files, module segments, and naming are owned by the conventions skill.

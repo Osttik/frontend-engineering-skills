@@ -1,13 +1,13 @@
-# Component design
+# Component responsibilities and abstraction
 
-Use for decomposition, public component APIs, and reusable behavior.
+A component should have a recognizable presentation or interaction responsibility. Separate responsibilities when their behavior, consumers, or reasons to change diverge. Semantic complexity, conditional behavior, and coupled side effects are better signals than line count. A large cohesive presentation can be reasonable.
 
-- Identify each component's responsibility, state owner, and reason to change. Extract a meaningful concept when its behavior changes independently, has its own useful tests, repeats with the same meaning, or makes conditional branching difficult to understand. Never split solely because a line limit was exceeded.
-- Prefer semantic inputs such as `status: 'draft' | 'published'` over combinations like `isDraft` plus `isPublished`. Keep ordinary independent booleans when they represent independent capabilities; the problem is contradictory modes and combinatorial configuration.
-- Use slots, children, or content projection when callers vary content or layout. Keep behavior in a headless unit when several presentations share an interaction contract. Use explicit variants when modes represent distinct concepts rather than inventing a universal configuration schema.
-- Choose controlled ownership when a caller coordinates value changes; choose internal/uncontrolled ownership for self-contained interactions. Make initial values, updates, reset behavior, and events unambiguous. Avoid two authoritative copies of one value.
-- Preserve native attributes, accessible naming, keyboard behavior, form participation, focus access, and disabled semantics when wrapping platform controls. Do not replace a button or link with a clickable generic container.
-- Share an abstraction only when responsibilities and reasons to change align. Keep domain-specific validation and authorization presentation out of generic primitives.
-- Review the public API through two realistic call sites. If adding a new mode requires many flags or exposing internals, reconsider the responsibility boundary.
+Distinguish a generic design-system primitive from a business component. A generic button expresses interaction and visual semantics; a payment confirmation expresses a business capability. Sharing appearance alone does not make business policy reusable.
 
-For React implementation patterns, consult `vercel-composition-patterns` and its relevant rule files. This reference defines the decisions, not a second React patterns manual.
+Choose a component contract that represents valid usage. Composition and content slots suit varying content; explicit variants suit meaningful modes; headless behavior can serve genuinely different presentations. Avoid sets of booleans that allow contradictory behavior. Clarify whether the caller or component owns selection, expansion, validation, and other state.
+
+Keep controlled and uncontrolled ownership deliberate. Do not create two authorities that repeatedly synchronize the same value. Cross-cutting coordination belongs to the owner of the workflow rather than an incidental reusable component.
+
+Extract shared behavior when its semantics and change pressure align. If two consumers only look similar, a shared abstraction may couple future changes unnecessarily. Introduce extensibility for demonstrated variation, not imagined future requirements.
+
+For React composition mechanisms, consult the relevant installed composition skill. Framework syntax, hook correctness, physical file placement, naming, and style colocation are implementation concerns.

@@ -8,7 +8,7 @@ import subprocess
 import sys
 import tempfile
 
-from skill_stack import (SOURCES, codex_home, default_destination, discovery_roots,
+from skill_stack import (SOURCES, PERSONAL_SKILLS, codex_home, default_destination, discovery_roots,
                         install_staged, state_directory, resolve_commit)
 
 
@@ -31,7 +31,7 @@ def installation_lock(state: Path):
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dest", type=Path, default=default_destination())
-    parser.add_argument("--include-upstream", action="store_true", help="Install all four skills")
+    parser.add_argument("--include-upstream", action="store_true", help="Install both personal skills and all three reviewed upstream skills")
     parser.add_argument("--only", choices=list(SOURCES), help="Install/update one skill independently")
     parser.add_argument("--latest", action="store_true", help="Explicitly update selected sources to current main instead of reviewed upstream commits")
     parser.add_argument("--installer", type=Path, default=codex_home() / "skills/.system/skill-installer/scripts/install-skill-from-github.py")
@@ -39,16 +39,20 @@ def main() -> int:
     if not args.installer.is_file():
         raise ValueError(f"Built-in installer not found: {args.installer}. Supply --installer /path/to/install-skill-from-github.py or invoke $skill-installer in Codex.")
     destination = args.dest.expanduser().resolve()
-    selected = [args.only] if args.only else list(SOURCES) if args.include_upstream else ["frontend-architecture"]
+    selected = [args.only] if args.only else list(SOURCES) if args.include_upstream else list(PERSONAL_SKILLS)
     roots = discovery_roots(destination)
     with installation_lock(state_directory(destination)):
         # Stage every download before modifying any active installation.
         with tempfile.TemporaryDirectory(prefix="stage-", dir=state_directory(destination)) as temporary:
             stage_root = Path(temporary)
             commits = {}
+            resolved_sources = {}
             for name in selected:
                 source = SOURCES[name]
-                commit = resolve_commit(source, args.latest)
+                key = (source["repo"], "main" if args.latest else source["ref"])
+                if key not in resolved_sources:
+                    resolved_sources[key] = resolve_commit(source, args.latest)
+                commit = resolved_sources[key]
                 commits[name] = commit
                 subprocess.run([sys.executable, str(args.installer), "--repo", source["repo"], "--path", source["path"], "--ref", commit, "--name", name, "--dest", str(stage_root)], check=True, timeout=180)
             for name in selected:

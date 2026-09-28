@@ -21,7 +21,7 @@ def implicit_policy(folder: Path) -> str:
     if not metadata.exists():
         return "enabled (documented default)"
     text = metadata.read_text(encoding="utf-8-sig")
-    # All four canonical skills use block YAML or omit this metadata entirely.
+    # The reviewed skills use block YAML or omit this metadata entirely.
     if not re.search(r"\ballow_implicit_invocation\b", text):
         return "enabled (documented default)"
     match = re.search(r"^\s+allow_implicit_invocation:\s*(true|false)\s*(?:#.*)?$", text, re.M)

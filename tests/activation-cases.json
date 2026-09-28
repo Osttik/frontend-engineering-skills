@@ -1,19 +1,215 @@
 [
-  {"prompt": "Review the architecture of this TypeScript frontend feature.", "context": "Browser application", "expected": ["frontend-architecture"]},
-  {"prompt": "Refactor this React component and improve its component API and performance.", "context": "React application", "expected": ["frontend-architecture", "vercel-composition-patterns", "vercel-react-best-practices"]},
-  {"prompt": "Implement this Angular feature using modern Angular patterns.", "context": "Angular application", "expected": ["frontend-architecture", "angular-developer"]},
-  {"prompt": "Refactor this React component.", "context": "React application", "expected": ["frontend-architecture", "vercel-composition-patterns", "vercel-react-best-practices"]},
-  {"prompt": "Add a new Angular settings page.", "context": "Angular application", "expected": ["frontend-architecture", "angular-developer"]},
-  {"prompt": "Review this frontend architecture.", "context": "Frontend application", "expected": ["frontend-architecture"]},
-  {"prompt": "Where should this state live?", "context": "A frontend filter used by two browser components", "expected": ["frontend-architecture"]},
-  {"prompt": "Create a backend database migration.", "context": "Backend-only task", "expected": []},
-  {"prompt": "Optimize this PostgreSQL query.", "context": "Backend-only task", "expected": []},
-  {"prompt": "Improve this Vue form and its API error handling.", "context": "Vue application", "expected": ["frontend-architecture"]},
-  {"prompt": "Fix a race in this Svelte browser search feature.", "context": "Svelte application", "expected": ["frontend-architecture"]},
-  {"prompt": "Create a React settings feature in this empty application.", "context": "No established source layout", "expected": ["frontend-architecture", "vercel-composition-patterns", "vercel-react-best-practices"], "structure_expected": "Use the feature-oriented React default; create needed files only"},
-  {"prompt": "Add a React settings feature.", "context": "Starter-only src/main.tsx and src/App.tsx; no feature conventions", "expected": ["frontend-architecture", "vercel-composition-patterns", "vercel-react-best-practices"], "structure_expected": "Use the default for new feature ownership; retain valid bootstrap conventions"},
-  {"prompt": "Add a React settings feature.", "context": "Established src/modules/<domain> with colocated domain code", "expected": ["frontend-architecture", "vercel-composition-patterns", "vercel-react-best-practices"], "structure_expected": "Preserve src/modules; do not impose src/features"},
-  {"prompt": "Add a settings page to this Next.js App Router project.", "context": "src/app is present; no feature conventions", "expected": ["frontend-architecture", "vercel-composition-patterns", "vercel-react-best-practices"], "structure_expected": "src/app/settings/page.tsx composes src/features/settings/SettingsScreen.tsx; no SPA router.tsx"},
-  {"prompt": "Add a settings page to this Next.js Pages Router project.", "context": "src/pages is present; no feature conventions", "expected": ["frontend-architecture", "vercel-composition-patterns", "vercel-react-best-practices"], "structure_expected": "src/pages/settings.tsx composes feature code; do not create a parallel app router"},
-  {"prompt": "Create this React feature under src/domains; use that as our structure.", "context": "Empty React app with explicit user layout", "expected": ["frontend-architecture", "vercel-composition-patterns", "vercel-react-best-practices"], "structure_expected": "Use the explicit src/domains structure instead of the default"}
+  {
+    "id": "utility-split",
+    "prompt": "Split this 1500-line utility file into coherent modules.",
+    "context": "Browser TypeScript utility; preserve semantic owners; no architecture redesign requested",
+    "expected": [
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "axios-profile",
+    "prompt": "Add an Axios API call for updating a profile.",
+    "context": "Frontend with an existing Axios client and profile owner",
+    "expected": [
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "constant-placement",
+    "prompt": "Move these constants to a better place.",
+    "context": "Frontend repository with established feature owners",
+    "expected": [
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "react-i18n",
+    "prompt": "Add localization for this React feature.",
+    "context": "Existing translation library and feature boundaries",
+    "expected": [
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "style-organization",
+    "prompt": "Clean up the styling structure.",
+    "context": "Frontend CSS Modules project; preserve styling technology",
+    "expected": [
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "hook-schema-placement",
+    "prompt": "Where should I put these hooks and schemas?",
+    "context": "React frontend; owners already established, concrete file placement requested",
+    "expected": [
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "import-cleanup",
+    "prompt": "Refactor this frontend code and clean up imports.",
+    "context": "Implementation cleanup without changing architectural ownership",
+    "expected": [
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "checkout-owner",
+    "prompt": "Should checkout be a feature or domain module?",
+    "context": "Frontend architecture decision",
+    "expected": [
+      "frontend-architecture"
+    ]
+  },
+  {
+    "id": "server-state-owner",
+    "prompt": "Where should server state ownership live?",
+    "context": "Frontend remote-cache and workflow architecture",
+    "expected": [
+      "frontend-architecture"
+    ]
+  },
+  {
+    "id": "dependency-boundaries",
+    "prompt": "Review dependency boundaries between these frontend modules.",
+    "context": "Architecture review, no implementation edits requested",
+    "expected": [
+      "frontend-architecture"
+    ]
+  },
+  {
+    "id": "checkout-implementation",
+    "prompt": "Implement a new checkout feature in this React app.",
+    "context": "Substantial new workflow needing ownership and implementation",
+    "expected": [
+      "frontend-architecture",
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "api-domain-ui",
+    "prompt": "Refactor this frontend to separate API, domain and UI concerns.",
+    "context": "Design boundaries and implement concrete migration",
+    "expected": [
+      "frontend-architecture",
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "unorganized-react",
+    "prompt": "Restructure this unorganized React project.",
+    "context": "Responsibilities and file organization both need decisions",
+    "expected": [
+      "frontend-architecture",
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "postgres-negative",
+    "prompt": "Optimize this PostgreSQL stored procedure.",
+    "context": "Backend-only",
+    "expected": []
+  },
+  {
+    "id": "react-empty",
+    "prompt": "Add this settings screen to an empty React SPA.",
+    "context": "Small screen with specified behavior; choose placement, no new domain architecture",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "structure_expected": "Use needed app/routes/features/shared; entities/widgets optional; no empty directories"
+  },
+  {
+    "id": "react-starter",
+    "prompt": "Add this settings screen to the React starter.",
+    "context": "Only src/main.tsx and src/App.tsx; retain valid bootstrap conventions",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "structure_expected": "Use fallback for new code, preserve valid starter entrypoints"
+  },
+  {
+    "id": "react-existing",
+    "prompt": "Add this settings screen to our React app.",
+    "context": "Coherent src/modules/<domain> with existing settings owner",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "structure_expected": "Preserve src/modules; do not impose src/features"
+  },
+  {
+    "id": "next-app",
+    "prompt": "Add a settings page to this Next.js App Router project.",
+    "context": "Established owner; src/app already owns routes",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "structure_expected": "Use native app/settings/page.tsx; no generic routes folder"
+  },
+  {
+    "id": "next-pages",
+    "prompt": "Add a settings page to this Next.js Pages Router project.",
+    "context": "Established owner; src/pages already owns routes",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "structure_expected": "Preserve pages; no parallel App Router"
+  },
+  {
+    "id": "react-explicit",
+    "prompt": "Create this small React feature under src/domains; use that as our structure.",
+    "context": "Explicit user layout, behavior already specified",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "structure_expected": "Honor explicit src/domains rather than fallback"
+  },
+  {
+    "id": "form-validation",
+    "prompt": "Add validation to this React form.",
+    "context": "Existing form, schema library and owner",
+    "expected": [
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "graphql-generated",
+    "prompt": "Update this GraphQL query and its generated types.",
+    "context": "Frontend Apollo/codegen project",
+    "expected": [
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "angular-edit",
+    "prompt": "Add a validation message to this Angular form.",
+    "context": "Existing Angular form conventions",
+    "expected": [
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "vue-edit",
+    "prompt": "Fix API error handling in this Vue form.",
+    "context": "Existing owner and API boundary",
+    "expected": [
+      "frontend-codebase-conventions"
+    ]
+  },
+  {
+    "id": "svelte-state",
+    "prompt": "Review shared state authority for this Svelte workflow.",
+    "context": "Ownership decision only",
+    "expected": [
+      "frontend-architecture"
+    ]
+  },
+  {
+    "id": "backend-migration",
+    "prompt": "Create a backend database migration.",
+    "context": "Backend-only",
+    "expected": []
+  }
 ]

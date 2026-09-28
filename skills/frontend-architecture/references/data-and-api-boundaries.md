@@ -1,15 +1,13 @@
-# Data and API boundaries
+# API, domain, and presentation boundaries
 
-Use for fetching, API contracts, cache lifecycle, or asynchronous mutations.
+A transport contract describes a remote interaction. A domain/application contract expresses business meaning and use cases. A view model expresses presentation needs. Separate them when representations, validation, behavior, or consumers actually differ; `API DTO != Domain Model != View Model` is a decision aid, not an instruction to clone every record three times.
 
-- Expose explicit data-access operations; keep endpoint details, authentication plumbing, transport errors, and response decoding at that boundary rather than scattered through render code.
-- Apply `API DTO != Domain Model != View Model` when names, units, nullability, business behavior, or presentation differ. For example, map a nullable transport field into an explicit domain absence before formatting a localized view value. Reuse a simple shape when it truly has the same contract; do not add ceremonial mapping layers.
-- Treat external responses as untrusted. Validate relevant runtime invariants at the boundary using existing schemas or focused checks. TypeScript assertions do not validate JSON. Keep mapping and validation independently testable where failures are meaningful.
-- Represent loading, empty, success, and error outcomes distinctly. Decide whether refresh preserves stale content and whether partial success can still render. Do not display a request failure as an empty dataset.
-- Tie requests to the consuming lifecycle. Cancel work where supported and ignore responses for obsolete parameters or unmounted consumers. For search or navigation, a later request must not be overwritten by an earlier response.
-- Give the existing cache ownership of keys, deduplication, freshness, and invalidation. Include every data-changing parameter and identity scope in keys. Do not create a second cache inside UI state.
-- After mutations, choose targeted invalidation or cache updates deliberately. For optimistic updates, define rollback/reconciliation and overlapping mutation ordering; a failed older write must not undo a newer success.
-- Use stable pagination contracts (cursor or offset as provided), preserve filter/sort identity, and prevent duplicate pages or redundant requests. Keep independent requests parallel when safe; sequence real dependencies.
-- Retry only appropriate operations and failures. Avoid blindly replaying non-idempotent writes. Distinguish cancellation from an actionable failure, and propagate sanitized error context to the recovery owner.
+Data access owns transport concerns. Business behavior owns application policy. Presentation owns display and interaction. Assign mapping and validation to the boundary that knows both sides and is responsible for the conversion. Avoid letting every consumer reconstruct remote naming, units, status meanings, or error semantics.
 
-Verify the important race, failure, or cache behavior rather than only testing the happy response. Use the framework's existing data library and version-compatible APIs.
+A simple application can use a transport record directly when it accurately serves its consumers. Add a mapping boundary when it protects business meaning from a volatile remote contract, consolidates a real conversion, or clarifies an inconsistent representation. Do not add repositories, adapters, and service layers merely to fill an architectural diagram.
+
+Define outcomes rather than exposing accidental transport behavior. A consumer should understand relevant success, absence, failure, and pending states. Distinguish expected user-recoverable failures from unexpected exceptions. Define who owns retry, rollback, and recovery when they are part of the workflow.
+
+Server state has one cache authority. Business mutations and presentation transitions should coordinate with that authority instead of producing parallel copies. Optimistic updates require an owner for reconciliation and rollback; invalidation belongs to the owner that knows which remote facts changed.
+
+For pagination, cancellation, deduplication, or races, choose ownership according to the actual lifetime and contract. API libraries, query syntax, generated files, schema placement, and concrete network-client configuration belong to implementation conventions.

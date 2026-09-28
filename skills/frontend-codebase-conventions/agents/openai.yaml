@@ -1,0 +1,6 @@
+interface:
+  display_name: "Frontend Codebase Conventions"
+  short_description: "Frontend file organization and implementation conventions"
+  default_prompt: "Use $frontend-codebase-conventions to make this frontend change follow the existing repository conventions."
+policy:
+  allow_implicit_invocation: true

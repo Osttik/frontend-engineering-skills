@@ -5,9 +5,12 @@ import sys
 import tempfile
 import unittest
 from unittest.mock import patch
+from contextlib import redirect_stdout
+import io
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from skill_stack import install_staged, receipt_path, state_directory, checked_child, installations
+import install as installer
 
 
 class InstallationTests(unittest.TestCase):
@@ -53,6 +56,16 @@ class InstallationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Local edits"):
             self.install(self.stage("second"))
         self.assertEqual(target.read_text(), "user change")
+
+    def test_removed_reference_disappears_from_active_copy_and_is_backed_up(self):
+        old = self.stage()
+        (old / "obsolete-reference.md").write_text("previous guidance", encoding="utf-8")
+        self.install(old)
+        self.assertEqual(self.install(self.stage("second")), "updated")
+        self.assertFalse((self.destination / "example/obsolete-reference.md").exists())
+        backups = list((state_directory(self.destination) / "backups").iterdir())
+        self.assertEqual((backups[0] / "obsolete-reference.md").read_text(), "previous guidance")
+        self.assertEqual(installations("example", [self.destination]), [self.destination / "example"])
 
     def test_unmanaged_different_folder_is_not_overwritten(self):
         target = self.destination / "example"
@@ -107,6 +120,34 @@ class InstallationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "ownership mismatch"):
             self.install(self.stage("second"))
         self.assertEqual((self.destination / "example/reference.md").read_text(), "first")
+
+    def test_default_cli_updates_both_personal_skills_without_touching_upstream(self):
+        helper = self.root / "download-helper.py"
+        helper.write_text("# mocked official helper", encoding="utf-8")
+        upstream = self.destination / "angular-developer/SKILL.md"
+        upstream.parent.mkdir(parents=True)
+        upstream.write_text("upstream sentinel", encoding="utf-8")
+
+        def download(command, **kwargs):
+            name = command[command.index("--name") + 1]
+            destination = Path(command[command.index("--dest") + 1]) / name
+            destination.mkdir()
+            (destination / "SKILL.md").write_text(
+                f"---\nname: {name}\ndescription: Test fixture\n---\n", encoding="utf-8")
+
+        arguments = ["install.py", "--dest", str(self.destination), "--installer", str(helper)]
+        with patch.object(sys, "argv", arguments), \
+                patch.object(installer, "discovery_roots", return_value=[self.destination]), \
+                patch.object(installer, "resolve_commit", return_value=self.commit) as resolve, \
+                patch.object(installer.subprocess, "run", side_effect=download), \
+                redirect_stdout(io.StringIO()):
+            self.assertEqual(installer.main(), 0)
+        self.assertEqual(resolve.call_count, 1)
+        for name in ("frontend-architecture", "frontend-codebase-conventions"):
+            self.assertTrue((self.destination / name / "SKILL.md").is_file())
+            self.assertEqual(json.loads(receipt_path(self.destination, name).read_text())["commit"], self.commit)
+        self.assertEqual(upstream.read_text(), "upstream sentinel")
+        self.assertFalse(receipt_path(self.destination, "angular-developer").exists())
 
 
 if __name__ == "__main__":

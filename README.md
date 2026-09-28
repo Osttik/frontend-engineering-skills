@@ -1,133 +1,92 @@
 # Frontend engineering skills
 
-A personal Codex stack for frontend engineering: one small framework-neutral architecture skill, complemented by canonical React and Angular skills installed separately.
+A personal Codex stack with two focused framework-neutral skills and three canonical upstream skills. Architecture handles ownership and collaboration; conventions handles concrete organization and everyday implementation. Existing project practice, explicit user choices, and native framework constraints take priority over defaults.
 
-`frontend-architecture` helps create, modify, review, debug, refactor, and design frontend code. It makes ownership, module boundaries, state, data contracts, component APIs, accessibility, testing, performance, and security explicit while respecting the project's existing conventions.
+## Responsibility matrix
 
-It does not impose FSD, Atomic Design, Redux, a global store, microfrontends, component line limits, or a visual style. It does not replace framework documentation or apply to backend-only work.
-
-## Progressive disclosure
-
-Codex first sees the name and description. When relevant, it reads [SKILL.md](skills/frontend-architecture/SKILL.md), a concise router. It then reads only the references needed for the current decision. An ordinary change does not require loading all 14 references or a generated framework manual.
-
-```text
-skills/frontend-architecture/
-  SKILL.md
-  agents/openai.yaml
-  references/
-    architecture-boundaries.md      component-design.md
-    state-ownership.md              data-and-api-boundaries.md
-    typescript-contracts.md         design-system-and-styling.md
-    routing-and-forms.md            accessibility.md
-    errors-and-observability.md     testing.md
-    performance.md                  security.md
-    architecture-methodologies.md   react-project-structure.md
-scripts/                           installer, verifier, validator, source manifest
-tests/                             installer safety tests and activation prompts
-docs/                              design/plan and validation evidence
-```
-
-## React default structure
-
-When a React project has no established application layout, follow the [feature-oriented default](skills/frontend-architecture/references/react-project-structure.md): `src/app` for composition, `src/features/<name>` for feature-owned code, `src/components/ui` for generic primitives, and small shared `lib`, `styles`, and `assets` folders when needed. Keep feature hooks, API adapters, models, and tests with their feature. Create only the files/subfolders the task needs.
-
-Existing intentional structures and explicit user choices take precedence. A starter-only scaffold qualifies for the default; a different consistent existing layout does not. Next.js uses its native `app` or `pages` routing tree instead of the plain React bootstrap arrangement. This is a lightweight default, not mandatory FSD or a request to restructure unrelated code.
-
-## Automatic and manual use
-
-The front-loaded description matches frontend code tasks in React, Angular, Vue, Svelte, and browser TypeScript/JavaScript. `agents/openai.yaml` explicitly sets `policy.allow_implicit_invocation: true`. No `$` mention is required. Selection remains a model decision, not a deterministic keyword filter.
-
-For manual invocation in Codex:
-
-```text
-$frontend-architecture Review this frontend feature's state ownership.
-```
-
-You can also use `/skills` in Codex CLI. Skills are user-scoped in `~/.agents/skills`, available across repositories. The [current official documentation](https://learn.chatgpt.com/docs/build-skills) describes automatic detection; restart Codex if a new skill does not appear. Do not install another copy in `~/.codex/skills` or repository `.agents/skills` under the same name.
-
-## Complementary upstream skills
-
-| Installed name | Canonical source/path | Purpose |
+| Skill | Responsibility | Typical activation |
 | --- | --- | --- |
-| `vercel-react-best-practices` | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills), `skills/react-best-practices` | React/Next.js performance and engineering |
-| `vercel-composition-patterns` | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills), `skills/composition-patterns` | Compound components, explicit variants, providers, state interfaces, and composition |
-| `angular-developer` | [angular/skills](https://github.com/angular/skills), `angular-developer` | Official Angular components, reactivity, DI, routing, forms, SSR, accessibility, testing, and tooling |
+| [frontend-architecture](skills/frontend-architecture/SKILL.md), v1.2.0 | Behavior/state ownership, feature/domain/shared boundaries, dependency direction, API/domain/UI separation, semantic contracts, abstraction and evolution | Review state ownership; decide checkout boundaries; design a substantial feature |
+| [frontend-codebase-conventions](skills/frontend-codebase-conventions/SKILL.md), v1.0.0 | Project/file/module placement, API access, constants/config, localization, styles/tokens, naming/imports, types/schemas, tests/generation, dependency reuse and cleanup | Add validation/API calls; organize styles; split utilities; clean imports |
+| `vercel-react-best-practices` | React/Next.js runtime engineering and performance | Relevant component, hook/effect, fetching, rendering, or bundle changes |
+| `vercel-composition-patterns` | React semantic component APIs and composition | Compound components, variants, providers, composition or reusable API design |
+| `angular-developer` | Official Angular components, reactivity, DI, HTTP, routing, forms, SSR, testing and tooling | Relevant Angular implementation |
 
-The core routes React work to both Vercel skills and Angular work to `angular-developer`, conditional on availability and task relevance. Use relevant upstream rule/reference files. All upstream content stays in its own installation; none is copied into this repository.
+A small React form validation change usually needs conventions and relevant React guidance. Implementing checkout can need both personal skills and framework guidance. A pure state-ownership review can use architecture alone; splitting a utility and cleaning imports can use conventions alone. Neither personal skill requires the other to always load.
 
-## Install
+## Progressive disclosure and React defaults
 
-Requirements: Python 3.10+, Git, network access, and Codex's bundled `skill-installer`. No Node packages, frameworks, or plugins are required.
+Each `SKILL.md` is a compact router. Architecture has six conceptual references; conventions has twelve concrete references. Read only the relevant reference, not the whole library or framework manual. Architecture prescribes no filesystem layout.
 
-Clone the published source:
+The conventions [project-structure reference](skills/frontend-codebase-conventions/references/project-structure.md) applies a lightweight fallback only to genuinely new/unstructured React SPAs: needed `src/app`, `src/routes`, `src/features`, and `src/shared`, with optional `entities` for real shared domain concepts and optional `widgets` for meaningful reusable composition. Create no empty layers. Feature `ui/model/api/lib/index.ts` segments are optional, and small features stay small.
+
+Inspect the framework, structure, formatter/linter, dependencies, naming, API/data, styles, localization, and tests before using a default. Preserve coherent pages/modules/domains/core conventions. Next.js App Router uses native app/page/layout/loading/error/route files; it does not get a generic routes directory. Pages Router and other meta-frameworks retain their native structure.
+
+The two descriptions distinguish architectural reasoning from implementation work. Both explicitly allow implicit invocation in `agents/openai.yaml`; a `$` mention is optional. Selection remains a model decision rather than a deterministic keyword filter.
+
+```text
+$frontend-architecture Review state ownership in this frontend.
+$frontend-codebase-conventions Split this utility and update its imports.
+```
+
+Skills install at user scope in `~/.agents/skills`. The [official Codex skill documentation](https://learn.chatgpt.com/docs/build-skills) describes discovery and automatic skill-change detection. Do not install another copy of either name in a second discovery root.
+
+## Install and update
+
+Requirements: Python 3.10+, Git, network access, and Codex's bundled `skill-installer`. No frontend dependencies or new plugins are needed.
 
 ```bash
 git clone https://github.com/Osttik/frontend-engineering-skills.git
 cd frontend-engineering-skills
 ```
 
-Windows PowerShell:
+Install/update **both personal skills** from published `main`:
 
 ```powershell
-.\scripts\install.ps1 --include-upstream
-python .\scripts\verify-installation.py --native
+.\scripts\install.ps1
 ```
-
-macOS/Linux or Git Bash:
 
 ```bash
-bash scripts/install.sh --include-upstream
-python3 scripts/verify-installation.py --native
+bash scripts/install.sh
 ```
 
-Omit `--include-upstream` to install only the core. The wrappers fetch published GitHub content through the built-in `install-skill-from-github.py`, with `--dest ~/.agents/skills` and explicit names. If its location differs, supply `--installer /absolute/path/to/install-skill-from-github.py`. `--dest /absolute/path/to/skills` supports a custom installation, but that directory must itself be a Codex discovery root for automatic use.
+Add `--include-upstream` to install the whole five-skill stack. Upstream sources remain pinned to the reviewed commits in [sources.json](scripts/sources.json): Vercel [react-best-practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices), Vercel [composition-patterns](https://github.com/vercel-labs/agent-skills/tree/main/skills/composition-patterns), and official [angular-developer](https://github.com/angular/skills/tree/main/angular-developer). Their content is installed separately and not copied into this repository.
 
-Alternatively ask Codex's `$skill-installer` to install the named paths above and this repository's `skills/frontend-architecture`, explicitly into `~/.agents/skills`. Such copies are unmanaged until the wrapper confirms their contents exactly match a canonical source; it will refuse to replace a differing unmanaged copy.
-
-The wrappers are idempotent. They resolve immutable source commits, stage downloads before changes, detect duplicate metadata names, and refuse linked installations, local edits, unrelated folders, or ownership mismatches. Update backups and provenance receipts live under `~/.agents/.frontend-engineering-skills/<destination-key>/`, outside discovery. An update preserves the previous copy there and rolls back a failed replacement. No script deletes unrelated user content or edits Codex configuration.
-
-## Update
-
-Get repository changes with `git pull --ff-only`, then rerun the installer. The core follows published `main`; upstream skills default to the reviewed commits recorded in [sources.json](scripts/sources.json).
-
-To deliberately fetch current canonical upstream `main`, update one skill independently:
+After `git pull --ff-only`, rerun the same installer. Independent updates are also available:
 
 ```powershell
-.\scripts\install.ps1 --only angular-developer --latest
-.\scripts\install.ps1 --only vercel-react-best-practices --latest
-.\scripts\install.ps1 --only vercel-composition-patterns --latest
+.\scripts\install.ps1 --only frontend-architecture
+.\scripts\install.ps1 --only frontend-codebase-conventions
 ```
 
-The Bash wrapper accepts the same flags. Use `--include-upstream --latest` to update the entire stack, then rerun native verification. Repeating the same command leaves matching content unchanged. Running without `--latest` restores the reviewed upstream pins if you previously moved ahead; use the same update mode intentionally.
+Use `--only angular-developer --latest` or another upstream name to deliberately advance that source to its current `main`. Use `--include-upstream --latest` to advance the entire stack. Omitting `--latest` reinstates reviewed upstream pins if previously advanced; choose the mode intentionally. Both wrappers accept the same flags.
 
-If local edits are detected, preserve them in the owning source repository or a separate backup before updating. The wrapper stops instead of replacing them. It never removes duplicate installations belonging to the user.
+Downloads use Codex's official `install-skill-from-github.py`. Supply `--installer /absolute/path/to/install-skill-from-github.py` if its location differs. `--dest` supports a custom directory, which must itself be a Codex discovery root for automatic use. The built-in `$skill-installer` can alternatively install both repository paths explicitly into `~/.agents/skills`; differing unmanaged copies are not silently overwritten by the wrapper.
+
+The installer resolves one immutable repository commit for both personal skills, stages downloads before changes, detects duplicate metadata names, preserves local edits, and refuses unrelated/unmanaged differing folders and ownership mismatches. Matching installs are unchanged. Updates replace the managed tree, including removal of obsolete references, while preserving the previous tree outside discovery. Failed replacements roll back.
+
+Receipts, staging, and backups live under `~/.agents/.frontend-engineering-skills/<destination-key>/`, outside discovery. Unrelated skills and Codex configuration are untouched. If local edits or duplicates block an update, preserve/resolve them explicitly before retrying.
+
+## Verification
+
+```bash
+python scripts/validate.py
+python -m unittest discover -s tests -v
+python scripts/verify-installation.py --native --output .verification/install.json
+```
+
+Authoring validation requires PyYAML, as does the bundled skill validator. Installation and discovery verification use the standard library. Run Codex's `skill-creator/scripts/quick_validate.py` on each authored skill as well.
+
+The repository validator checks both schemas, metadata, direct reference routing, local documentation links, router budgets, and the architecture filesystem separation. The installer tests exercise safety and concrete two-skill updates. [Activation fixtures](tests/activation-cases.json) cover implementation-only, architecture-only, combined, and backend-only requests, plus project-structure precedence.
+
+The native verifier calls `skills/list` with `forceReload: true` in a fresh local app-server. It checks each skill appears exactly once, enabled at user scope, with implicit invocation allowed, and verifies content hashes/provenance. It makes no model request or desktop restart. [Validation evidence](docs/validation.md) distinguishes real runtime discovery from semantic activation assessment; [migration details](docs/responsibility-split.md) record changed/deleted files and outcomes. The [installed skills audit](docs/installed-skills-audit.md) records preserved complementary skills.
 
 ## Uninstall
 
-Move only the intended skill folder out of every discovery root. For example, this PowerShell command preserves the core in a user-chosen backup directory:
+Move only the intended skill folder out of every discovery root to a user-chosen backup directory. Uninstall either personal skill independently; upstream skills need not move. Alternatively use the documented `[[skills.config]]` entry with the absolute `SKILL.md` path and `enabled = false`. Receipts/backups outside discovery do not activate skills and may remain for recovery.
 
-```powershell
-$skillBackup = Join-Path $env:USERPROFILE 'skill-backups'
-New-Item -ItemType Directory -Force -Path $skillBackup | Out-Null
-Move-Item -LiteralPath (Join-Path $env:USERPROFILE '.agents\skills\frontend-architecture') -Destination $skillBackup
-```
+## Versioning and license
 
-On macOS/Linux: `mkdir -p ~/skill-backups` then `mv ~/.agents/skills/frontend-architecture ~/skill-backups/`. Move upstream folders individually only if you also want to uninstall them. To keep a folder but disable it, use the documented `[[skills.config]]` entry with its absolute `SKILL.md` path and `enabled = false`, then restart Codex. Receipts/backups outside discovery do not activate skills and can remain for recovery.
+Versions live in skill metadata: architecture `1.2.0`, conventions `1.0.0`. This repository has no established tags/releases, so the responsibility split continues metadata versioning rather than introducing a release workflow.
 
-## Verify and contribute
-
-```bash
-python scripts/verify-installation.py --native --output .verification/install.json
-python scripts/validate.py
-python -m unittest discover -s tests -v
-```
-
-Only authoring validation requires PyYAML; it is already used by Codex's official validator. If absent, install it in a development virtual environment. Installation and discovery verification use Python's standard library.
-
-The native verifier calls `skills/list` with `forceReload: true` in a fresh local Codex app-server, checks enabled/unique skills and implicit policy, and verifies installed hashes against commit receipts. It makes no model request. It does not restart the desktop app or interfere with an existing chat. [Validation evidence](docs/validation.md) distinguishes native discovery from semantic activation emulation; the [frontend skills audit](docs/installed-skills-audit.md) records complementary existing skills and provenance.
-
-Change the narrow reference responsible for a decision. Keep the router concise and add/update its routing link only when necessary. Run `validate.py`, the built-in `skill-creator/scripts/quick_validate.py`, and safety tests. Review [activation prompts](tests/activation-cases.json) against the actual descriptions; do not implement a fake keyword matcher and call it a model test. Push accepted changes before installing, since GitHub is the source of truth.
-
-## License and attribution
-
-Original content and convenience scripts in this repository are [MIT licensed](LICENSE), copyright 2026 Osttik. The installed upstream skills each declare MIT in their `SKILL.md` metadata, with Vercel authorship for the two React skills and copyright 2026 Google LLC for Angular. At inspection neither canonical repository exposed a root LICENSE file through GitHub's license API; the recorded statement is the per-skill declaration. Preserve upstream files/attribution unchanged. This repository links to upstream sources and does not redistribute their skill text or generated `AGENTS.md` files.
+Original content and scripts are [MIT licensed](LICENSE), copyright 2026 Osttik. The three installed upstream skills declare MIT in their per-skill metadata; preserve their attribution and files. The canonical repositories did not expose a root LICENSE through GitHub's license API at inspection. No upstream manuals or generated `AGENTS.md` content are redistributed here.
