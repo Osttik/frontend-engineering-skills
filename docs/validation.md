@@ -4,7 +4,7 @@
 
 Updated the existing conventions router and four existing references: naming/code style, constants/configuration, localization, and files/modules. There are still twelve references and fourteen total skill files. No architecture skill files or upstream source pins changed. This is a minor behavior-guidance release under the existing metadata-version policy; the repository has no tags/releases.
 
-The conventions router remains compact: 64 lines, 7,651 characters, approximately 1,913 tokens by characters/4. Both bundled skill validators passed. Repository metadata, invocation policies, reference routing, all 40 local links, description constraints, router budgets, and architecture separation checks passed. All 12 existing installer safety tests and `git diff --check` passed.
+The conventions router remains compact: 64 lines, 7,651 characters, approximately 1,913 tokens by characters/4. Both bundled skill validators passed. Repository metadata, invocation policies, reference routing, all 41 local links, description constraints, router budgets, and architecture separation checks passed. All 12 existing installer safety tests and `git diff --check` passed.
 
 Manual review confirms defaults are limited to new/meaningfully modified code and preserve coherent existing styles and tooling. Function style is a preference with declaration exceptions, not a syntax ban. Constants distinguish policy/configuration from ordinary copy, localization resources, and obvious local literals. Localization follows the existing system automatically for changed visible and accessibility copy, without blind infrastructure additions. Module decomposition preserves cohesion and the existing optional public-API rules. Topic references own the detail; the router only summarizes/routes it.
 
@@ -22,7 +22,13 @@ Seventeen new behavior fixtures extend the existing 26 routing fixtures to 43. T
 
 Additional cases cover semantic declaration exceptions, substantial versus trivial callbacks, public/internal event naming, feature option ownership, cohesive modules/global CSS, stable translated option values, existing backend error codes, and an intentionally new multilingual application. Local assessment evidence is `.verification/coding-localization-assessment.json`; fixtures remain in [activation-cases.json](../tests/activation-cases.json).
 
-Before installation, native force-reload discovery verified the existing five-skill stack. A fresh preservation snapshot records content/receipts for nineteen other user skills, including architecture and all three upstream skills. Publication and installation results are recorded after refreshing conventions from GitHub.
+Published feature commit: `1b2d6a40209a2242a972fb290999abaeb2945b0e`. The PowerShell wrapper installed only conventions from that immutable GitHub revision into `C:/Users/lolol/.agents/skills/frontend-codebase-conventions`; a repeat through Git Bash returned unchanged. Installed hashes match the published checkout, with version 1.1.0 and fourteen files.
+
+Native `skills/list` with force reload finds all five stack names exactly once, enabled at user scope, at their intended paths, with no discovery errors. Conventions retains explicit implicit-invocation permission. Native `codex debug prompt-input` includes its updated UI-copy/localization and function-style description in the model-visible catalogue. These are real runtime availability checks, not model selection tests.
+
+All nineteen other user skill trees **and receipts** match the pre-update snapshot, including architecture and all three upstream skills. No duplicate or stale active installation was found. Only conventions was refreshed, so the architecture receipt remains at its previous source commit. No manual action is needed for the verified runtime.
+
+Machine evidence: `.verification/installation-coding-localization.json`, `.verification/prompt-discovery-coding-localization.json`, and `.verification/preservation-after-coding-localization.json`. A subsequent documentation-only publication may advance the conventions receipt with identical skill content.
 
 The current [official Codex skills documentation](https://learn.chatgpt.com/docs/build-skills) was checked for user-scope discovery and implicit-invocation metadata; the existing explicitly enabled policy is preserved.
 

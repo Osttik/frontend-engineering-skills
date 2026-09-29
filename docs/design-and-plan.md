@@ -13,5 +13,7 @@ Strengthen everyday conventions in the existing skill, preserving its twelve-ref
 - [x] Update the router and existing naming, constants, localization, and module references. Add a brief automatic review step; keep detailed rules in their owning reference.
 - [x] Extend activation fixtures with the requested behavior examples and assess both positive cases and exceptions. Retain honest separation between semantic assessment and live model selection.
 - [x] Validate both skills, references, budgets, and existing installer tests; review for duplicate/conflicting rules. Bump conventions to 1.1.0 and update current documentation.
-- [ ] Commit/push the existing repository, install only conventions from the published source, and verify native discovery and hashes. Preserve architecture, upstream, and unrelated user skills.
-- [ ] Publish the observed verification record and confirm the final working tree, remote, and installed revision.
+- [x] Commit/push the existing repository, install only conventions from the published source, and verify native discovery and hashes. Preserve architecture, upstream, and unrelated user skills.
+- [x] Publish the observed verification record and confirm the final working tree, remote, and installed revision.
+
+Observed outcome: conventions 1.1.0 published and installed, native discovery/catalogue verified, all 19 other user skill trees and receipts preserved. Both skill validators, 41 local links, router budgets/separation, and all 12 installer tests passed. Seventeen added behavior cases plus 26 retained routing cases were semantically assessed; no live model selection is claimed. Exact results are in [validation](validation.md).
