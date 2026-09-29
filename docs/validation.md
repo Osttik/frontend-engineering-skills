@@ -1,4 +1,32 @@
-# Validation results - 2026-09-28
+# Validation results
+
+## Coding and localization conventions 1.1.0 - 2026-09-29
+
+Updated the existing conventions router and four existing references: naming/code style, constants/configuration, localization, and files/modules. There are still twelve references and fourteen total skill files. No architecture skill files or upstream source pins changed. This is a minor behavior-guidance release under the existing metadata-version policy; the repository has no tags/releases.
+
+The conventions router remains compact: 64 lines, 7,651 characters, approximately 1,913 tokens by characters/4. Both bundled skill validators passed. Repository metadata, invocation policies, reference routing, all 40 local links, description constraints, router budgets, and architecture separation checks passed. All 12 existing installer safety tests and `git diff --check` passed.
+
+Manual review confirms defaults are limited to new/meaningfully modified code and preserve coherent existing styles and tooling. Function style is a preference with declaration exceptions, not a syntax ban. Constants distinguish policy/configuration from ordinary copy, localization resources, and obvious local literals. Localization follows the existing system automatically for changed visible and accessibility copy, without blind infrastructure additions. Module decomposition preserves cohesion and the existing optional public-API rules. Topic references own the detail; the router only summarizes/routes it.
+
+Seventeen new behavior fixtures extend the existing 26 routing fixtures to 43. The primary assistant assessed all new cases against the written references and retained the existing routing expectations. This is **semantic assessment**, not live model execution or a keyword selector. It does not prove future automatic selection or runtime application behavior.
+
+| Requested behavior example | Assessment |
+| --- | --- |
+| Report-download helper with no conflicting style | Named const async arrow by default; declarations need a concrete reason |
+| Existing declaration-based project | Preserve declarations and untouched code |
+| Retry/error copy in react-i18next app | Existing resources/API, applicable accessibility text, no text-constant workaround |
+| Delete button in Ukrainian-only app | Local copy permitted; no new i18n infrastructure or global text constant |
+| Download-lifetime policy delay | Meaningful owner-local DOWNLOAD_URL_LIFETIME_MS |
+| Obvious local list slice | No mechanical THREE constant |
+| Utility mixing Blob/downloads, dates, URLs | Cohesive browser-file helper and independent useful concepts, not one file per function |
+
+Additional cases cover semantic declaration exceptions, substantial versus trivial callbacks, public/internal event naming, feature option ownership, cohesive modules/global CSS, stable translated option values, existing backend error codes, and an intentionally new multilingual application. Local assessment evidence is `.verification/coding-localization-assessment.json`; fixtures remain in [activation-cases.json](../tests/activation-cases.json).
+
+Before installation, native force-reload discovery verified the existing five-skill stack. A fresh preservation snapshot records content/receipts for nineteen other user skills, including architecture and all three upstream skills. Publication and installation results are recorded after refreshing conventions from GitHub.
+
+The current [official Codex skills documentation](https://learn.chatgpt.com/docs/build-skills) was checked for user-scope discovery and implicit-invocation metadata; the existing explicitly enabled policy is preserved.
+
+## Historical validation - 2026-09-28
 
 ## Responsibility split
 

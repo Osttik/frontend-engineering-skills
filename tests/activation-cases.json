@@ -211,5 +211,211 @@
     "prompt": "Create a backend database migration.",
     "context": "Backend-only",
     "expected": []
+  },
+  {
+    "id": "arrow-helper-default",
+    "prompt": "Add a helper that downloads a report.",
+    "context": "Frontend TS/JS; no established function syntax or conflicting tool rule",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Ordinary new helper uses named const async arrow syntax unless a concrete declaration benefit exists.",
+      "Do not normalize untouched functions."
+    ]
+  },
+  {
+    "id": "declaration-project-style",
+    "prompt": "Add a helper that downloads a report.",
+    "context": "Frontend project consistently uses named function declarations",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Preserve coherent declaration style.",
+      "Do not force arrows or rewrite the repository."
+    ]
+  },
+  {
+    "id": "declaration-semantic-exception",
+    "prompt": "Add this recursive frontend parser helper used before its declaration.",
+    "context": "Intentional hoisting; declarations clarify the recursive algorithm",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "A function declaration is acceptable for concrete hoisting/clarity semantics.",
+      "Do not treat arrow syntax as unconditional."
+    ]
+  },
+  {
+    "id": "complex-callback",
+    "prompt": "Extend this item mapping callback with substantial conversion behavior.",
+    "context": "Frontend callback now expresses a coherent named conversion",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Use a named helper when it clarifies the concept.",
+      "Keep extraction owner-local and judge semantics rather than LOC."
+    ]
+  },
+  {
+    "id": "trivial-callback",
+    "prompt": "Filter the active items in this frontend view.",
+    "context": "Existing simple items.filter(item => item.active)",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "A trivial inline callback is acceptable.",
+      "Do not create a helper/file solely to enforce naming."
+    ]
+  },
+  {
+    "id": "event-prop-names",
+    "prompt": "Add a close callback to this React dialog.",
+    "context": "No conflicting React naming convention",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Public prop is onClose; internal handler is handleClose.",
+      "Use existing intentional naming if different."
+    ]
+  },
+  {
+    "id": "localized-retry-copy",
+    "prompt": "Add a Retry button and a loading error.",
+    "context": "Localized React app uses react-i18next and feature namespaces; request does not mention localization",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Automatically reuse/add translation resources under the existing namespace and locale workflow.",
+      "Visible error/button copy and applicable aria-label/placeholder/title text use the existing translation API.",
+      "Do not introduce RETRY_TEXT or raw backend error strings as the final message."
+    ]
+  },
+  {
+    "id": "single-language-delete",
+    "prompt": "Add a Delete button.",
+    "context": "Intentionally Ukrainian-only frontend with no i18n layer",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Keep ordinary Ukrainian UI copy with its owner when clear.",
+      "Do not add localization infrastructure or meaningless global delete-text constants."
+    ]
+  },
+  {
+    "id": "download-policy-constant",
+    "prompt": "Clarify this setTimeout(cleanup, 60000) in the download helper.",
+    "context": "The delay encodes application policy for a browser object-URL lifetime",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Name the policy, e.g. DOWNLOAD_URL_LIFETIME_MS = 60_000.",
+      "Keep the constant with the coherent browser-file helper; do not globalize it."
+    ]
+  },
+  {
+    "id": "local-literal",
+    "prompt": "Clean up items.slice(0, 3) in this frontend list.",
+    "context": "Three is obvious local presentation logic, not shared business policy",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Do not mechanically create THREE or extract every literal.",
+      "Leave clear local code intact."
+    ]
+  },
+  {
+    "id": "browser-utility-concepts",
+    "prompt": "Organize this utility module containing Blob conversion, downloading, dates, and URL parsing.",
+    "context": "Frontend mixed-responsibility utility with established library convention",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Browser Blob/object-URL/download behavior can stay in one coherent helper.",
+      "Separate independent dates and URLs where useful; do not create one file per function."
+    ]
+  },
+  {
+    "id": "cohesive-module-preservation",
+    "prompt": "Review whether this large frontend module needs splitting.",
+    "context": "Module has one coherent responsibility and no independently changing concepts",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Preserve cohesion; do not split purely because of LOC.",
+      "Assess consumer contract and extraction benefit."
+    ]
+  },
+  {
+    "id": "feature-option-placement",
+    "prompt": "Move these feature-specific options out of an unrelated hook.",
+    "context": "Established app/features/shared layout; options private to one feature",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Keep options with their feature owner.",
+      "Multiple files inside that feature do not justify moving options into shared."
+    ]
+  },
+  {
+    "id": "global-css-preservation",
+    "prompt": "Review our existing global CSS organization.",
+    "context": "Cohesive global baseline/theme styles; no unrelated component-style growth",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Do not mechanically split a coherent stylesheet without a benefit.",
+      "Preserve the installed styling approach and actual global concerns."
+    ]
+  },
+  {
+    "id": "translated-option-identity",
+    "prompt": "Add localized status options to this frontend filter.",
+    "context": "Existing translation API and stable active/inactive machine values",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Keep business values locale-independent.",
+      "Translate labels via the existing pattern; do not persist translated display text."
+    ]
+  },
+  {
+    "id": "localized-backend-error",
+    "prompt": "Show the failed-document error to users.",
+    "context": "Localized frontend; backend already supplies stable error codes and internal diagnostics",
+    "expected": [
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Map existing stable categories/codes to localized UI messages and preserve sanitized diagnostics separately.",
+      "Do not create a new error-code architecture for this small change."
+    ]
+  },
+  {
+    "id": "multilingual-new-app",
+    "prompt": "Set up this new frontend app for Ukrainian and English.",
+    "context": "Explicit multilingual requirement; localization stack and boundaries need design",
+    "expected": [
+      "frontend-architecture",
+      "frontend-codebase-conventions"
+    ],
+    "behavior_expected": [
+      "Intentionally establish suitable localization design and implementation.",
+      "Prefer cohesive feature/domain resources where no convention exists; do not treat UI copy as global constants."
+    ]
   }
 ]
