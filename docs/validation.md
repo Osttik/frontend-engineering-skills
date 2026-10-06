@@ -1,5 +1,13 @@
 # Validation results
 
+## React return and conditional spacing - 2026-10-06
+
+Conventions metadata is now version `1.1.1`. The change is limited to its router and existing naming/code-style reference. React components use multiline parenthesized JSX returns by default, with the semicolon after the closing parenthesis. A completed `if` or `if`/`else` chain gets a blank line before a following statement; `else` and `else if` remain attached. Existing coherent project formatting takes precedence, and untouched code is not reformatted solely for this preference.
+
+Both bundled skill validators and `scripts/validate.py` passed. The conventions router remains 65 lines, 7,888 characters, and approximately 1,972 tokens by the repository's characters/4 estimate, with its twelve reference links intact. `git diff --check` passed. This is a text-only style preference; no implementation-mirroring test was added.
+
+Skill-change commit `7c81f18a6c28a77bf5d6c20b3a5b725600477272` was pushed to the existing repository. The official download helper installed only conventions at `C:/Users/lolol/.agents/skills/frontend-codebase-conventions`. Installed hashes match the checkout. Native `skills/list` with force reload finds all five stack skills exactly once, enabled at user scope, with implicit invocation permitted and no discovery errors. Hashes and provenance receipts for the other 19 installed user skills, including architecture and all upstream skills, are unchanged. Machine-specific evidence is in ignored `.verification/react-formatting-install.json` and `.verification/react-formatting-preservation.json`.
+
 ## Coding and localization conventions 1.1.0 - 2026-09-29
 
 Updated the existing conventions router and four existing references: naming/code style, constants/configuration, localization, and files/modules. There are still twelve references and fourteen total skill files. No architecture skill files or upstream source pins changed. This is a minor behavior-guidance release under the existing metadata-version policy; the repository has no tags/releases.

@@ -24,4 +24,6 @@ Keep this small preference in the existing conventions skill. A React component 
 
 - [x] Update the concise router and its existing naming/code-style reference; bump conventions metadata to 1.1.1.
 - [x] Update the README and verify skill schema, reference links, and router budget.
-- [ ] Commit and push, install only conventions from the published source, and verify native discovery and preservation of other skills.
+- [x] Commit and push, install only conventions from the published source, and verify native discovery and preservation of other skills.
+
+Observed outcome: conventions 1.1.1 was published and installed from its immutable GitHub revision. Native force-reload discovery found one enabled user-level copy; its files match the repository. All 19 other installed user skill trees and receipts are unchanged. The router, reference links, and both skill schemas validated; the working tree and final remote are checked after this documentation update.

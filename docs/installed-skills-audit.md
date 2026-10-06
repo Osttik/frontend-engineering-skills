@@ -7,7 +7,7 @@ Paths use `~` for the Windows user profile. Full absolute paths and machine-spec
 | Skill | Source | Installed path | Version / commit or folder hash | Implicit |
 | --- | --- | --- | --- | --- |
 | `frontend-architecture` | [Osttik/frontend-engineering-skills](https://github.com/Osttik/frontend-engineering-skills) | `~/.agents/skills/frontend-architecture` | version 1.2.0; skill-change commit `4d3d237c1f4fe6e5897b48980e2da398d693f922` | yes |
-| `frontend-codebase-conventions` | [Osttik/frontend-engineering-skills](https://github.com/Osttik/frontend-engineering-skills) | `~/.agents/skills/frontend-codebase-conventions` | version 1.1.0; skill-change commit `1b2d6a40209a2242a972fb290999abaeb2945b0e` | yes |
+| `frontend-codebase-conventions` | [Osttik/frontend-engineering-skills](https://github.com/Osttik/frontend-engineering-skills) | `~/.agents/skills/frontend-codebase-conventions` | version 1.1.1; skill-change commit `7c81f18a6c28a77bf5d6c20b3a5b725600477272` | yes |
 | `vercel-react-best-practices` | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | `~/.agents/skills/vercel-react-best-practices` | version 1.0.0; commit `063bee94c3f4df8453406c830b0a7df0f2860278` | yes |
 | `vercel-composition-patterns` | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | `~/.agents/skills/vercel-composition-patterns` | version 1.0.0; commit `063bee94c3f4df8453406c830b0a7df0f2860278` | yes |
 | `angular-developer` | [angular/skills](https://github.com/angular/skills) | `~/.agents/skills/angular-developer` | version 1.0; commit `bb6fb990438bb28840ed0cd8f0f08e51c295f1ce` | yes |
@@ -32,3 +32,5 @@ The existing visual-direction skills can complement engineering work and retain 
 The responsibility split preserved the hashes and receipts of all three upstream skills and the file hashes of all 15 unrelated installed user skills. Architecture now governs architectural decisions; conventions governs concrete code organization. Both descriptions and invocation policies were verified through native discovery and the model-visible catalogue.
 
 The 2026-09-29 conventions update refreshed only that skill. Hashes and provenance receipts of all 19 other user skills, including architecture and the three upstream skills, are unchanged. The updated convention description is present in native Codex discovery and its model-visible catalogue.
+
+The 2026-10-06 React formatting update again refreshed only conventions. Its installed content matches the published skill, native discovery finds one enabled user-level copy, and the other 19 user skill trees and receipts remain unchanged.
