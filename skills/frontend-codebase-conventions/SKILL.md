@@ -4,7 +4,7 @@ description: Use when creating, modifying, refactoring, or reviewing frontend im
 license: MIT
 metadata:
   author: Osttik
-  version: "1.1.0"
+  version: "1.1.1"
 ---
 
 # Frontend Codebase Conventions
@@ -29,7 +29,7 @@ Apply defaults to new or meaningfully modified code. Keep a small change small: 
 | Semantic constants versus copy/literals, configuration, environment | [Constants and configuration](references/constants-and-config.md) |
 | Add/change any UI copy; translation resources, accessible text, formatting | [Localization](references/localization.md) |
 | Style colocation, existing theme/tokens, visual constants | [Styling](references/styling.md) |
-| Function syntax, callbacks, React event names, clarity and comments | [Naming and code style](references/naming-and-code-style.md) |
+| Function syntax, React JSX/`if` formatting, callbacks, event names | [Naming and code style](references/naming-and-code-style.md) |
 | Small public exports, optional index files, aliases and import cleanup | [Imports and public APIs](references/imports-and-public-apis.md) |
 | Owner-local types/schemas and truthful boundary contracts | [Types and validation](references/types-and-validation.md) |
 | Test placement/useful checks; generated files and generators | [Tests and generated code](references/tests-and-generated-code.md) |
@@ -43,6 +43,7 @@ Read the relevant references only. They own concrete conventions; framework skil
 - **Use defaults selectively.** For new/unstructured React SPAs, create needed app/routes/features/shared code. Entities/widgets and feature segments are optional; create no empty layers. Native meta-framework routing owns route files.
 - **Keep code with its owner.** Feature hooks, schemas, constants, styles, API operations, and tests follow that feature's convention. Shared code must express a genuinely reusable concept; avoid global dumping grounds.
 - **Prefer named arrows as a fallback.** Ordinary new functions generally use `const name = () =>` when project/framework conventions permit. Follow the code-style reference for declarations with useful semantics, complex callbacks, and public `onX` versus internal `handleX` names.
+- **Format React returns and conditionals.** In new or meaningfully edited components, wrap JSX returns across lines in parentheses; leave a blank line after a completed `if` when more code follows. Follow established project formatting.
 - **Split by meaning.** Decompose any file when responsibilities, domains, dependencies, testable concepts, or reasons to change diverge. Cohesion matters more than LOC; do not extract every function into its own file.
 - **Expose deliberately.** A small public entrypoint can clarify a useful contract. Index files are optional; avoid barrel chains, private exports, and cycles. Preserve efficient documented package subpaths.
 - **Reuse data machinery.** Use existing clients/caches and API boundaries. Keep owned operations close to their owner; add configuration/error policy only when needed. Avoid wrapper chains and parallel server caches.

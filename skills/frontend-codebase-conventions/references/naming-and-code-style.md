@@ -22,6 +22,26 @@ Function declarations remain appropriate for intentional hoisting, recursion whe
 
 Extract a non-trivial anonymous callback when it expresses a nameable concept. For example, meaningful item conversion can become `const mapItem = (item: Item) => { ... };` followed by `items.map(mapItem)`. Use semantic complexity rather than line count. A trivial `items.filter(item => item.active)` can remain inline; do not force one helper per callback.
 
+## React JSX returns and `if` spacing
+
+When a React component returns JSX, prefer `return (` with the JSX on following lines and `);` after it, even for one element or a fragment. The semicolon belongs after the closing parenthesis, never inside JSX. After a completed `if` block or `if`/`else` chain, leave a blank line before the next statement, including a JSX return:
+
+```tsx
+const Status = ({ ready }: { ready: boolean }) => {
+  if (!ready) {
+    return null;
+  }
+
+  return (
+    <>
+      <p>Ready</p>
+    </>
+  );
+};
+```
+
+Keep `else` and `else if` attached to their preceding branch; do not insert a blank line within the chain or after its final statement when no code follows. Apply these as React formatting defaults where the project has no coherent conflicting convention; do not reformat untouched components solely for this preference.
+
 ## Naming and clarity
 
 When no React convention exists, use PascalCase components, `useX` hooks, and `isX`/`hasX`/`canX`/`shouldX` booleans. Public callback props use `onClose`/`onSubmit`/`onChange`/`onSelect`; internal handlers use `handleClose`/`handleSubmit`/`handleChange`. Do not expose `handleClose` as a prop unless the project intentionally uses that API convention. Use existing filename patterns; framework-required filenames take priority.

@@ -17,3 +17,11 @@ Strengthen everyday conventions in the existing skill, preserving its twelve-ref
 - [x] Publish the observed verification record and confirm the final working tree, remote, and installed revision.
 
 Observed outcome: conventions 1.1.0 published and installed, native discovery/catalogue verified, all 19 other user skill trees and receipts preserved. Both skill validators, 41 local links, router budgets/separation, and all 12 installer tests passed. Seventeen added behavior cases plus 26 retained routing cases were semantically assessed; no live model selection is claimed. Exact results are in [validation](validation.md).
+
+## React formatting update plan - 2026-10-06
+
+Keep this small preference in the existing conventions skill. A React component returning JSX uses a multiline parenthesized `return`, with the semicolon after `)`. Leave a blank line after a completed `if` or `if`/`else` chain when another statement follows; keep `else`/`else if` attached. Follow coherent project formatting and apply the default to new or meaningfully edited code.
+
+- [x] Update the concise router and its existing naming/code-style reference; bump conventions metadata to 1.1.1.
+- [x] Update the README and verify skill schema, reference links, and router budget.
+- [ ] Commit and push, install only conventions from the published source, and verify native discovery and preservation of other skills.

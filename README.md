@@ -7,7 +7,7 @@ A personal Codex stack with two focused framework-neutral skills and three canon
 | Skill | Responsibility | Typical activation |
 | --- | --- | --- |
 | [frontend-architecture](skills/frontend-architecture/SKILL.md), v1.2.0 | Behavior/state ownership, feature/domain/shared boundaries, dependency direction, API/domain/UI separation, semantic contracts, abstraction and evolution | Review state ownership; decide checkout boundaries; design a substantial feature |
-| [frontend-codebase-conventions](skills/frontend-codebase-conventions/SKILL.md), v1.1.0 | Project/file/module placement, API access, constants/config, localization, styles/tokens, naming/imports, types/schemas, tests/generation, dependency reuse and cleanup | Add validation/API calls; organize styles; split utilities; clean imports |
+| [frontend-codebase-conventions](skills/frontend-codebase-conventions/SKILL.md), v1.1.1 | Project/file/module placement, API access, constants/config, localization, styles/tokens, naming/imports, types/schemas, tests/generation, dependency reuse and cleanup | Add validation/API calls; organize styles; split utilities; clean imports |
 | `vercel-react-best-practices` | React/Next.js runtime engineering and performance | Relevant component, hook/effect, fetching, rendering, or bundle changes |
 | `vercel-composition-patterns` | React semantic component APIs and composition | Compound components, variants, providers, composition or reusable API design |
 | `angular-developer` | Official Angular components, reactivity, DI, HTTP, routing, forms, SSR, testing and tooling | Relevant Angular implementation |
@@ -23,6 +23,8 @@ The conventions [project-structure reference](skills/frontend-codebase-conventio
 Inspect the framework, structure, formatter/linter, dependencies, naming, API/data, styles, localization, and tests before using a default. Preserve coherent pages/modules/domains/core conventions. Next.js App Router uses native app/page/layout/loading/error/route files; it does not get a generic routes directory. Pages Router and other meta-frameworks retain their native structure.
 
 Conventions v1.1.0 strengthens defaults for new/meaningfully modified code: named const arrows when existing style/tooling permits; semantic callback/event names; owner-local policy constants rather than arbitrary string/number extraction; and proactive translation of all new copy in localized apps. Single-language copy may remain local. A brief automatic review checks these decisions; existing formatter/linter and coherent project style remain authoritative.
+
+Conventions v1.1.1 adds a React formatting default: put returned JSX on separate lines inside `return (...)`, and leave a blank line after a completed `if` before the next statement. Keep `else`/`else if` attached, and follow an established project formatting convention where it differs.
 
 The two descriptions distinguish architectural reasoning from implementation work. Both explicitly allow implicit invocation in `agents/openai.yaml`; a `$` mention is optional. Selection remains a model decision rather than a deterministic keyword filter.
 
@@ -89,6 +91,6 @@ Move only the intended skill folder out of every discovery root to a user-chosen
 
 ## Versioning and license
 
-Versions live in skill metadata: architecture `1.2.0`, conventions `1.1.0`. This repository has no established tags/releases, so the responsibility split continues metadata versioning rather than introducing a release workflow.
+Versions live in skill metadata: architecture `1.2.0`, conventions `1.1.1`. This repository has no established tags/releases, so the responsibility split continues metadata versioning rather than introducing a release workflow.
 
 Original content and scripts are [MIT licensed](LICENSE), copyright 2026 Osttik. The three installed upstream skills declare MIT in their per-skill metadata; preserve their attribution and files. The canonical repositories did not expose a root LICENSE through GitHub's license API at inspection. No upstream manuals or generated `AGENTS.md` content are redistributed here.
